@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CasosSospechososMI.App"
+             xmlns:views="clr-namespace:CasosSospechososMI.UI.Base.Views;assembly=CasosSospechososMI">
+    <!--
+        Define global resources and styles here, that apply to all pages in your app.
+    -->
+    <Application.Resources>
+        <ResourceDictionary>
+            <Color x:Key="Selected">#dfedd6</Color>
+            <Color x:Key="Primary">#66cc00</Color>
+            <Color x:Key="SecondaryGreen">#669900</Color>
+            <Color x:Key="Alert">#FF0000</Color>
+            <Color x:Key="Comment">#D3D3D3</Color>
+            <Color x:Key="GreyText">#606060</Color>
+            <Color x:Key="BgPage">white</Color>
+            <Style TargetType="Label">
+                <Setter Property="FontFamily" Value="AsapRegular.ttf#AsapRegular"/>
+                <Style.Triggers>
+                    <Trigger TargetType="Label" Property="FontAttributes" Value="Italic">
+                        <Setter Property="FontFamily" Value="QuicksandLight" />
+                    </Trigger>
+                    <Trigger TargetType="Label" Property="FontAttributes" Value="Bold">
+                        <Setter Property="FontFamily" Value="AsapBold.ttf#AsapBold" />
+                    </Trigger>
+                </Style.Triggers>
+                
+            </Style>
+            <!--<Style TargetType="Label">
+                <Style.Triggers>
+                    <Trigger TargetType="Label" Property="FontAttributes" Value="Bold">
+                        <Setter Property="FontFamily" Value="QuicksandBold" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>-->
+            <Style TargetType="Button">
+                <Setter Property="TextColor" Value="White"></Setter>
+                <Setter Property="VisualStateManager.VisualStateGroups">
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="Disabled">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="#332196F3" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </Setter>
+            </Style>
+            <views:BasePageTemplate x:Key="BasePageTemplate" />
+        </ResourceDictionary>        
+    </Application.Resources>
+</Application>

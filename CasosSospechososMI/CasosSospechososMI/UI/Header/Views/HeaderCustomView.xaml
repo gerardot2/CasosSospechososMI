@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CasosSospechososMI.UI.Header.Views.HeaderCustomView"
+             xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms">
+  <ContentView.Content>
+      <StackLayout>
+            <StackLayout.Background>
+                <SolidColorBrush Color="White"/>
+            </StackLayout.Background>
+            <StackLayout 
+                Margin="0,40"
+                IsVisible="true"
+                Orientation="Vertical"
+                Spacing="0"
+                VerticalOptions="CenterAndExpand"
+                >
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height=".5*"/>
+                        <RowDefinition Height=".2*"/>
+                    </Grid.RowDefinitions>
+                    <StackLayout Grid.Row="0">
+                        <ff:CachedImage 
+                            Source="profile_user.png"
+                            Aspect="AspectFit"
+                            WidthRequest="50"
+                            HeightRequest="50"
+                            />
+                    </StackLayout>
+                    <StackLayout Grid.Row="1" HorizontalOptions="CenterAndExpand">
+                        <Label FontAttributes="Bold" x:Name="labelName"/>
+                    </StackLayout>
+                </Grid>
+                
+                
+            </StackLayout>
+        </StackLayout>
+  </ContentView.Content>
+</ContentView>

@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"             
+             Shell.NavBarIsVisible="False"
+             Shell.TabBarIsVisible="False"
+             ControlTemplate="{StaticResource BasePageTemplate}"
+             xmlns:pancakeview="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             x:Class="CasosSospechososMI.UI.Records.Views.RecordDetailPage">
+    <ContentPage.Content>
+        
+        <StackLayout Margin="25,10">
+            <StackLayout
+                Padding="20,20"
+                HorizontalOptions="StartAndExpand"
+                Orientation="Horizontal"
+                VerticalOptions="Start">
+                <ff:CachedImage
+                    HeightRequest="25"
+                    Source="back.png"
+                    WidthRequest="25" />
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding OnCloseModalCommand}" />
+                </StackLayout.GestureRecognizers>
+            </StackLayout>
+            <Label Margin="20,0,20,20" Text="Detalle Muestra" TextColor="Black" FontAttributes="Bold"
+                   FontSize="25" VerticalTextAlignment="Center" HorizontalOptions="Start"/>
+            
+            <StackLayout Margin="0,10" IsVisible="{Binding HasSamples}" Orientation="Vertical">
+                <Grid>
+                    
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width=".4*"/>
+                    <ColumnDefinition Width=".6*"/>
+                </Grid.ColumnDefinitions>
+                    <StackLayout Grid.Column="0" Orientation="Vertical">
+                        <Label Text="Nro Muestra" TextColor="Black" FontSize="18" HorizontalTextAlignment="Start"/>
+                        <Label Text="Fecha" TextColor="Black" FontSize="18" HorizontalTextAlignment="Start"/>
+                        <Label Text="Estado" TextColor="Black" FontSize="18" HorizontalTextAlignment="Start"/>
+                        <Label Text="Resultado" TextColor="Black" FontSize="18" HorizontalTextAlignment="Start"/>
+                    </StackLayout>
+                    <StackLayout Grid.Column="1" Orientation="Vertical">
+                        <Label Text="{Binding Sample.Id}" TextColor="Red"  FontSize="18" HorizontalTextAlignment="Start"/>
+                        <Label Text="{Binding Sample.FechaCarga}" TextColor="Red"  FontSize="18" HorizontalTextAlignment="Start"/>
+                        <Label Text="{Binding Sample.Estado}" TextColor="Red"  FontSize="18" HorizontalTextAlignment="Start"/>
+                        <Label Text="{Binding Sample.ResultadoFormat}" TextColor="Red"  FontSize="18" HorizontalTextAlignment="Start"/>
+                    </StackLayout>
+                </Grid>
+            </StackLayout>
+            <StackLayout x:Name="sampleItems" Orientation="Vertical"/>
+
+            <StackLayout HorizontalOptions="Center"  IsVisible="{Binding Sample.HasPhoto}" Margin="20">
+            <pancakeview:PancakeView  BackgroundColor="{StaticResource Comment}"  
+                                              CornerRadius="4">
+                <pancakeview:PancakeView Margin="2" BackgroundColor="{StaticResource Comment}" 
+                                              CornerRadius="4" Border="{pancakeview:BorderMarkup Color=White, Thickness='3'}">
+                    <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                            <ff:CachedImage Source="{Binding Sample.Imagen}" Aspect="AspectFit"  WidthRequest="200" HeightRequest="200"/>
+                    </StackLayout>
+                </pancakeview:PancakeView>
+
+            </pancakeview:PancakeView>
+            </StackLayout>
+            <StackLayout Margin="0,20" IsVisible="{Binding Sample.HasComment}">
+                <BoxView BackgroundColor="{StaticResource Comment}" HeightRequest="1" HorizontalOptions="FillAndExpand"/>
+                <pancakeview:PancakeView CornerRadius="10" BackgroundColor="Gray" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand" Margin="0,10">
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="{Binding Sample.Comentario}" 
+                           FontSize="17" FontAttributes="Italic" HorizontalTextAlignment="Start" Margin="10" TextColor="Black" HorizontalOptions="StartAndExpand"/>
+                        
+                    </StackLayout>
+                </pancakeview:PancakeView>
+                <BoxView BackgroundColor="{StaticResource Comment}" HeightRequest="1" HorizontalOptions="FillAndExpand"/>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

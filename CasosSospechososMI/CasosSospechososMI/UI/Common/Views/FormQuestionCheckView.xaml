@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CasosSospechososMI.UI.Common.Views.FormQuestionCheckView"
+             xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:viewModel="clr-namespace:CasosSospechososMI.UI.Sample.ViewModels">
+  <ContentView.Content>
+        <StackLayout x:Name="formQuestionCheckItem">
+            <Grid RowSpacing="0" ColumnSpacing="0" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Label x:Name="preguntaText" HorizontalOptions="Center" VerticalOptions="Center"/>
+                <StackLayout Grid.Column="1" Orientation="Horizontal" HorizontalOptions="EndAndExpand" VerticalOptions="Center">
+                    <Label Text="Si" VerticalTextAlignment="Center"/>
+                    <ff:CachedImage x:Name="checkYes" Source="radio_button_unchecked.png" HeightRequest="20" Aspect="AspectFit">
+                        <ff:CachedImage.GestureRecognizers>
+                            <TapGestureRecognizer 
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:SampleRecordingViewModel}}, Path=CheckYesCommand}"
+                                CommandParameter="{Binding .}"                 
+                                Tapped="TapGestureRecognizer_TappedYes" />
+                        </ff:CachedImage.GestureRecognizers>
+                    </ff:CachedImage>
+                    <Label Text="No" VerticalTextAlignment="Center"/>
+                    <ff:CachedImage x:Name="checkNo" Source="radio_button_unchecked.png" HeightRequest="20" Aspect="AspectFit">
+                        <ff:CachedImage.GestureRecognizers>
+                            <TapGestureRecognizer 
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:SampleRecordingViewModel}}, Path=CheckNoCommand}"
+                                CommandParameter="{Binding .}"                 
+                                Tapped="TapGestureRecognizer_TappedNo" />
+                        </ff:CachedImage.GestureRecognizers>
+                    </ff:CachedImage>
+                </StackLayout>
+            </Grid>
+            <BoxView Margin=" 0" HorizontalOptions="FillAndExpand" Color="Gray" HeightRequest="1"/>
+        </StackLayout>
+  </ContentView.Content>
+</ContentView>

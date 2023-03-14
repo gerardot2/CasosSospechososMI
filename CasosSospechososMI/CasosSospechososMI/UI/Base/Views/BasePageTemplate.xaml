@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ControlTemplate xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CasosSospechososMI.UI.Base.Views.BasePageTemplate"
+                 xmlns:headerviews="clr-namespace:CasosSospechososMI.UI.Header.Views;assembly=CasosSospechososMI">
+    <AbsoluteLayout VerticalOptions="FillAndExpand">
+        <StackLayout
+            AbsoluteLayout.LayoutBounds="0,0,1,1"
+            AbsoluteLayout.LayoutFlags="All"
+            Spacing="-6"
+            VerticalOptions="FillAndExpand">
+            <ScrollView VerticalOptions="Center">
+                <!--<StackLayout VerticalOptions="FillAndExpand">
+                    <StackLayout IsVisible="{TemplateBinding BindingContext.IsNotConnected, Mode=TwoWay}">
+                        <headerviews:MissingConnectivityView />
+                    </StackLayout>
+                    <StackLayout IsEnabled="{TemplateBinding BindingContext.IsConnected, Mode=TwoWay}" VerticalOptions="FillAndExpand">
+                    </StackLayout>
+                </StackLayout>-->
+                        <ContentPresenter VerticalOptions="FillAndExpand" />
+            </ScrollView>
+
+        </StackLayout>
+
+
+        <ContentView
+            AbsoluteLayout.LayoutBounds="0,0,1,1"
+            AbsoluteLayout.LayoutFlags="All"
+            BackgroundColor="#222222"
+            IsVisible="{TemplateBinding BindingContext.IsBusy}"
+            Opacity="0.5" />
+
+        <ActivityIndicator
+            AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1"
+            AbsoluteLayout.LayoutFlags="PositionProportional"
+            IsRunning="{TemplateBinding BindingContext.IsBusy}"
+            IsVisible="{TemplateBinding BindingContext.IsBusy}"
+            Color="{StaticResource Primary}" />
+    </AbsoluteLayout>
+</ControlTemplate>

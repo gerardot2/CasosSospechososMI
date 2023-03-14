@@ -1,0 +1,159 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CasosSospechososMI.UI.Home.Views.AboutPage"
+             xmlns:viewModels="clr-namespace:CasosSospechososMI.UI.Home.ViewModels"
+             ControlTemplate="{StaticResource BasePageTemplate}"
+             xmlns:pancakeview="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             xmlns:local="clr-namespace:CasosSospechososMI.Converters"
+             xmlns:controls="clr-namespace:CasosSospechososMI.Controls"
+             Shell.NavBarIsVisible="False"
+             Shell.TabBarIsVisible="False"
+             xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             Title="{Binding Title}">
+
+    
+    <!--<ContentPage.BindingContext>
+        <vm:AboutViewModel />
+    </ContentPage.BindingContext>-->
+    
+    <ContentPage.Resources>
+        
+        <ResourceDictionary>
+            <controls:InverterConverter x:Key="Inveter"/>
+            <local:ColorConverter x:Key="ColorConverter"/>
+            <Color x:Key="Accent">#96d1ff</Color>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <StackLayout>
+        <StackLayout
+                Padding="20,20"
+                HorizontalOptions="StartAndExpand"
+                Orientation="Horizontal"
+                VerticalOptions="Start">
+            <ff:CachedImage
+                    HeightRequest="25"
+                    Source="boton_menu.png"
+                    WidthRequest="25" />
+            <StackLayout.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding MenuModalCommand}" />
+            </StackLayout.GestureRecognizers>
+        </StackLayout>
+        <StackLayout HorizontalOptions="CenterAndExpand" Margin="10" VerticalOptions="Start">
+            <Label Text="Inicio" FontFamily=""  FontSize="23" HorizontalTextAlignment="Center" TextColor="Black"/>
+        </StackLayout>
+        <StackLayout Margin="15" IsVisible="{Binding IsSupervisor, Converter={StaticResource Inveter}}">
+            <pancakeview:PancakeView BackgroundColor="{StaticResource Comment}" CornerRadius="15">
+                <StackLayout>
+                <Grid Margin="15">
+                    <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.7*"/>
+                            <ColumnDefinition Width="0.4*"/>
+                        </Grid.ColumnDefinitions>
+                        <StackLayout Grid.Column="0">
+                            <Label FontSize="18" FontAttributes="Bold" Text="Aspersor :"/>
+                            <Label FontSize="18" FontAttributes="Bold" Text="Muestras registradas :"/>
+                            <Label FontSize="18" FontAttributes="Bold" Text="Fecha última muestra :"/>
+                            <Label FontSize="18" FontAttributes="Bold" Text="Fecha próxima muestra :"/>
+                            <Label FontSize="18" FontAttributes="Bold" Text="Dias para próxima muestra :"/>
+                        </StackLayout>
+                        <StackLayout Grid.Column="1">
+                            <Label FontSize="18" Text="{Binding HomeData.Ovitrampa}"/>
+                            <Label FontSize="18" Text="{Binding HomeData.MuestrasRegistradas}"/>
+                            <Label FontSize="18" Text="{Binding HomeData.FechaUltimaMuestra}" />
+                            <Label FontSize="18" Text="{Binding HomeData.FechaProximaMuestra}" />
+                            <Label x:Name="diasLabel" FontSize="18" Text="{Binding HomeData.DiasParaProximaMuestra}" 
+                                   TextColor="{Binding HomeData.DiasParaProximaMuestra, Converter={StaticResource ColorConverter}}"/>
+                        </StackLayout>
+                    </Grid>
+                </StackLayout>
+            </pancakeview:PancakeView>
+        </StackLayout>
+
+        <StackLayout IsVisible="{Binding IsSupervisor}" Margin="15">
+            <pancakeview:PancakeView BackgroundColor="{StaticResource Comment}" CornerRadius="15">
+                <StackLayout>
+                    <Label FontSize="18" FontAttributes="Bold" Text="Última familia :" Margin="15,15,15,0"/>
+                    <StackLayout Spacing="0" Margin="15,0,0,0" >
+                        <Grid Margin="15,0,0,0" VerticalOptions="Center">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0" >
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="0.6*"/>
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                <Label FontSize="18" FontAttributes="Bold" Text="Código :"/>
+                                    <Label FontSize="18" Text="{Binding HomeSupervisorData.UltimaFamilia.Codigo}" Grid.Column="1"/>
+                                </Grid>
+                                <Grid Grid.Row="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="0.6*"/>
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Label FontSize="18" FontAttributes="Bold" Text="Nombre :" />
+                                    <Label FontSize="18" Text="{Binding HomeSupervisorData.UltimaFamilia.Nombre}" Grid.Column="1"/>
+                                </Grid>
+                                <Grid Grid.Row="2" >
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="0.6*"/>
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Label FontSize="18" FontAttributes="Bold" Text="Hora y Fecha :" />
+                                    <Label FontSize="18" Text="{Binding HomeSupervisorData.UltimaFamilia.FechaHora}" Grid.Column="1"/>
+                                </Grid>
+                            <Grid Grid.Row="3">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="0.6*"/>
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Label FontSize="18" FontAttributes="Bold" Text="Dirección :" />
+                                    <Label FontSize="18" Text="{Binding HomeSupervisorData.UltimaFamilia.Domicilio}" Grid.Column="1"/>
+                                </Grid>
+                            <Grid Grid.Row="4" >
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="0.6*"/>
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Label FontSize="18" FontAttributes="Bold" Text="Localidad :" />
+                                    <Label FontSize="18" Text="{Binding HomeSupervisorData.UltimaFamilia.Localidad}" Grid.Column="1" />
+                                </Grid>
+                        </Grid>
+                        
+                    </StackLayout>
+                
+                    <Grid Margin="15">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="0.3*"/>
+                    </Grid.ColumnDefinitions>
+                        <StackLayout Grid.Column="0">
+
+                            <Label FontSize="18" FontAttributes="Bold" Text="Cantidad de visitas en el día :"/>
+                            <Label FontSize="18" FontAttributes="Bold" Text="Cantidad de visitas en el mes :"/>
+                        </StackLayout>
+                        <StackLayout Grid.Column="1">
+                            <Label FontSize="18" Text="{Binding HomeSupervisorData.CantidadDia}" />
+                            <Label  FontSize="18" Text="{Binding HomeSupervisorData.CantidadMes}" />
+                        </StackLayout>
+                    </Grid>
+                </StackLayout>
+            </pancakeview:PancakeView>
+        </StackLayout>
+        <StackLayout VerticalOptions="End" Orientation="Horizontal" HorizontalOptions="Center" Margin="20" IsVisible="{Binding IsSupervisor, Converter={StaticResource Inveter}}">
+            <ff:CachedImage Source="play_button.png" HeightRequest="40"/>
+            <Label Text="Video Instructivo" VerticalTextAlignment="Center" TextColor="DarkGray" FontSize="16"/>
+            <StackLayout.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding OnPlayVideoClicked}"/>
+            </StackLayout.GestureRecognizers>
+        </StackLayout>
+        
+        </StackLayout>
+
+</ContentPage>

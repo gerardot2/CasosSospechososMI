@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CasosSospechososMI.UI.Selector.Views.SelectorPage"
+            xmlns:pancakeview="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             BackgroundColor="White">
+    <ContentPage.Content>
+        <StackLayout VerticalOptions="CenterAndExpand" Margin="40,20" BackgroundColor="White">
+        <Grid RowSpacing="40" VerticalOptions="CenterAndExpand">
+            <Grid.RowDefinitions>
+                <RowDefinition Height=".5*"/>
+                <RowDefinition Height=".5*"/>
+            </Grid.RowDefinitions>
+            <StackLayout Grid.Row="0">
+                    <pancakeview:PancakeView Margin="10"
+                   BackgroundColor="White"
+                   HorizontalOptions="FillAndExpand"
+                   HeightRequest="200"
+                   CornerRadius="10,10,10,10">
+                        <pancakeview:PancakeView.Border>
+                            <pancakeview:Border Color="{StaticResource Primary}" Thickness="6" />
+                        </pancakeview:PancakeView.Border>
+                        <pancakeview:PancakeView.Shadow>
+                            <pancakeview:DropShadow Offset="20,20"/>
+                        </pancakeview:PancakeView.Shadow>
+                        <Label FontSize="25" TextColor="{StaticResource Primary}"  VerticalTextAlignment="Center" HorizontalTextAlignment="Center" Text="Familia Aliada" FontAttributes="Bold"/>
+                        <pancakeview:PancakeView.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="Family_Tapped"/>
+                        </pancakeview:PancakeView.GestureRecognizers>
+                </pancakeview:PancakeView>
+            </StackLayout>
+            <StackLayout Grid.Row="1">
+                    <pancakeview:PancakeView Margin="10"
+                   BackgroundColor="White"
+                   HorizontalOptions="FillAndExpand"
+                   HeightRequest="200"
+                   CornerRadius="10,10,10,10">
+                        <pancakeview:PancakeView.Border>
+                            <pancakeview:Border Color="{StaticResource Primary}" Thickness="6" />
+                        </pancakeview:PancakeView.Border>
+                        <pancakeview:PancakeView.Shadow>
+                            <pancakeview:DropShadow Offset="20,20"/>
+                        </pancakeview:PancakeView.Shadow>
+                            <Label FontSize="25" TextColor="{StaticResource Primary}" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" Text="Supervisor" FontAttributes="Bold"/>
+                        <pancakeview:PancakeView.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="Supervisor_Tapped"/>
+                        </pancakeview:PancakeView.GestureRecognizers>
+                </pancakeview:PancakeView>
+            </StackLayout>
+        </Grid>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

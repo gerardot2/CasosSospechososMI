@@ -1,0 +1,132 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="UI\Visit\ViewModels\VisitRecordingViewModel.cs" />
+    <Compile Remove="UI\Visit\Views\VisitRecordingPage.xaml.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Remove="UI\Visit\Views\VisitRecordingPage.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="appsettings.json" />
+    <None Remove="Resources\Fonts\AsapBold.ttf" />
+    <None Remove="Resources\Fonts\AsapRegular.ttf" />
+    <None Remove="Resources\Fonts\QuicksandBold.otf" />
+    <None Remove="Resources\Fonts\QuicksandLight.otf" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Fonts\AsapBold.ttf" />
+    <EmbeddedResource Include="Resources\Fonts\AsapRegular.ttf" />
+    <EmbeddedResource Include="Resources\Fonts\QuicksandBold.otf" />
+    <EmbeddedResource Include="Resources\Fonts\QuicksandLight.otf" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Acr.UserDialogs" Version="7.2.0.564" />
+    <PackageReference Include="akavache" Version="9.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="7.0.0" />
+    <PackageReference Include="Refit" Version="6.3.2" />
+    <PackageReference Include="Rg.Plugins.Popup" Version="2.1.0" />
+    <PackageReference Include="Xamarin.CommunityToolkit" Version="2.0.5" />
+    <PackageReference Include="Xamarin.FFImageLoading.Forms" Version="2.4.11.982" />
+    <PackageReference Include="Xamarin.FFImageLoading.Transformations" Version="2.4.11.982" />
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2545" />  
+    <PackageReference Include="Xamarin.Essentials" Version="1.7.3" />  
+    <PackageReference Include="Xamarin.Forms.OpenWhatsApp" Version="1.0.1" />  
+    <PackageReference Include="Xamarin.Forms.PancakeView" Version="2.3.0.759" />  
+    <PackageReference Include="ZXing.Net.Mobile" Version="2.4.1" />  
+    <PackageReference Include="ZXing.Net.Mobile.Forms" Version="2.4.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\MosquitrampaMI.App.Domain\MosquitrampaMI.Domain.csproj" />
+    <ProjectReference Include="..\..\MosquitrampaMI.Services\MosquitrampaMI.Services.csproj" />
+    <ProjectReference Include="..\..\MosquitrampaMI.UseCases\MosquitrampaMI.UseCases.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="SupervisorShell.xaml.cs">
+      <DependentUpon>SupervisorShell.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="UI\Common\Views\ConfirmPopup.xaml.cs">
+      <DependentUpon>ConfirmPopup.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="UI\Common\Views\PlayerPopup.xaml.cs">
+      <DependentUpon>PlayerPopup.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="UI\Header\Views\MissingConnectivityView.xaml.cs">
+      <DependentUpon>MissingConnectivityView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="UI\Records\Views\RecordDetailPage.xaml.cs">
+      <DependentUpon>RecordDetailPage.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="UI\Base\Views\BasePageTemplate.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="UI\Common\Views\FormQuestionCheckView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="UI\Common\Views\FormQuestionSelectView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="UI\Common\Views\FormQuestionTextView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="UI\Common\Views\ResultPopup.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="UI\FamilyData\Views\FamilyDataPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="UI\Header\Views\HeaderCustomView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="UI\Header\Views\MissingConnectivityView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="UI\Loading\Views\LoadingPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="UI\Login\Views\LoginPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="UI\MyData\Views\MyDataPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="UI\Records\Views\RecordsPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="UI\Registration\Views\RegistrationPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="UI\Sample\Views\SampleRecordingView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="UI\Selector\Views\SelectorPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="UI\Visit\Views\VisitListPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="UI\Common\ViewModels\" />
+  </ItemGroup>
+</Project>

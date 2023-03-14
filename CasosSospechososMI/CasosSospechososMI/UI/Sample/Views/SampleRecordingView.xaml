@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CasosSospechososMI.UI.Sample.Views.SampleRecordingView"
+             xmlns:converters="clr-namespace:CasosSospechososMI.Controls"
+             Shell.NavBarIsVisible="False"
+             ControlTemplate="{StaticResource BasePageTemplate}"
+             xmlns:pancakeview="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             x:Name="BrowseFormItemsPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:InverterConverter x:Key="inverterConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <StackLayout Orientation="Vertical" Margin="25,10">
+            <Label Margin="20,20" Text="{Binding TitleHeader}" TextColor="Black" FontAttributes="Bold"
+                   FontSize="25" VerticalTextAlignment="Start" HorizontalOptions="Center"/>
+            <StackLayout x:Name="formItemsContent" Orientation="Vertical">
+            
+            </StackLayout>
+            <StackLayout x:Name="formPhotoContent">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <StackLayout Orientation="Vertical" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                        <Label Text="presione aquí para tomar foto del dispositivo aspersor" HorizontalTextAlignment="Center" FontSize="16" Margin="10,0,10,5"/>
+                        <ff:CachedImage HorizontalOptions="Center" Source="photo_camera.png" HeightRequest="20" Aspect="AspectFill"/>
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding CameraCommmand}"/>
+                        </StackLayout.GestureRecognizers>
+                    </StackLayout>
+                    <pancakeview:PancakeView Grid.Column="1" BackgroundColor="{StaticResource Comment}" HorizontalOptions="FillAndExpand" HeightRequest="150"
+                                             VerticalOptions="FillAndExpand" CornerRadius="4">
+                        <pancakeview:PancakeView Margin="2" BackgroundColor="{StaticResource Comment}" HorizontalOptions="FillAndExpand"
+                                             VerticalOptions="FillAndExpand" CornerRadius="4" Border="{pancakeview:BorderMarkup Color=White, Thickness='3'}">
+                            <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                            <Label Text="Imagen" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"  IsVisible="{Binding HasPhoto, Mode=TwoWay, Converter={StaticResource inverterConverter}}"/>
+                                <ff:CachedImage Source="{Binding PhotoPath}" IsVisible="{Binding HasPhoto}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Aspect="AspectFill"/>
+                            </StackLayout>
+                        </pancakeview:PancakeView>
+                        
+                    </pancakeview:PancakeView>
+                </Grid>
+                <BoxView HeightRequest="1" HorizontalOptions="FillAndExpand" Color="Gray" Margin="0"/>
+            </StackLayout>
+            <!--<StackLayout>
+                <pancakeview:PancakeView CornerRadius="10" BackgroundColor="DimGray" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand">
+                    <Label Text="Recuerde retirar el palillo de la ovitrampa y colocarlo dentro del sobre a entregar al responsable." 
+                           FontSize="17" FontAttributes="Italic" HorizontalTextAlignment="Center" Margin="10" TextColor="OrangeRed"/>
+                </pancakeview:PancakeView>
+            </StackLayout>-->
+            <StackLayout>
+                <converters:RoundedEditor HeightRequest="60" Placeholder="Comentarios" FontSize="16" Text="{Binding FormRecord.Comment}"/>
+            </StackLayout>
+            <StackLayout VerticalOptions="EndAndExpand" Margin="30,30">
+                <pancakeview:PancakeView BackgroundColor="{StaticResource Primary}" CornerRadius="5" IsEnabled="{Binding IsButtonEnabled}" VerticalOptions="Center">
+                    
+                    <Label  Text="Enviar Registro" TextColor="White" FontSize="18" FontAttributes="Bold" Margin="5" HorizontalTextAlignment="Center"/>
+                    <pancakeview:PancakeView.Shadow>
+                        <pancakeview:DropShadow Color="#000000" Offset="10,10" />
+                    </pancakeview:PancakeView.Shadow>
+                    <pancakeview:PancakeView.Triggers>
+                        <Trigger TargetType="pancakeview:PancakeView" Property="IsEnabled" Value="False">
+                            <Setter Property="BackgroundColor" Value="Gray"/>
+                        </Trigger>
+                    </pancakeview:PancakeView.Triggers>
+                    <pancakeview:PancakeView.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding SubmitCommand}"/>
+                    </pancakeview:PancakeView.GestureRecognizers>
+                </pancakeview:PancakeView>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,164 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CasosSospechososMI.UI.FamilyData.Views.FamilyDataPage"
+             ControlTemplate="{StaticResource BasePageTemplate}"
+             xmlns:controls="clr-namespace:CasosSospechososMI.Controls"
+             Shell.NavBarIsVisible="False"
+             xmlns:behavior="clr-namespace:CasosSospechososMI.Behavior"
+             xmlns:viewModels="clr-namespace:CasosSospechososMI.UI.FamilyData.ViewModels"
+             xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:pancakeview="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView">
+    <ContentPage.Content>
+        <StackLayout Margin="20,0">
+            <Label Margin="20,20" Text="Consultar" TextColor="Black" FontAttributes="Bold"
+                   FontSize="25" VerticalTextAlignment="Start" HorizontalOptions="Center"/>
+            <StackLayout Spacing="0">
+                <Grid ColumnSpacing="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="0.2*"/>
+                    </Grid.ColumnDefinitions>
+                    <StackLayout Grid.Column="0">
+                        <Label Grid.Column="0" Text="Código Aspersor" TextColor="Black" FontSize="14" VerticalTextAlignment="Start"/>
+                        <controls:CustomEntry x:Name="codeEntry" HorizontalOptions="FillAndExpand" Placeholder="Código" Text="{Binding Code}">
+                            <controls:CustomEntry.Behaviors>
+                                <behavior:TrapValidator />
+                            </controls:CustomEntry.Behaviors>
+                        </controls:CustomEntry>
+                    </StackLayout>
+                    <StackLayout Grid.Column="1" VerticalOptions="Center">
+                        <ff:CachedImage
+                            Source="photo_camera.png"
+                            Aspect="AspectFit"
+                            WidthRequest="25"
+                            HeightRequest="25"
+                            />
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+                        </StackLayout.GestureRecognizers>
+                    </StackLayout>
+                </Grid>
+                <Label HorizontalOptions="FillAndExpand" Text="Ingresa el código que aparece en el sobre o presione sobre el icono de cámara y escanee el código QR" TextColor="{StaticResource Comment}" FontSize="12" VerticalTextAlignment="Start"
+                           />
+            </StackLayout>
+            <pancakeview:PancakeView BackgroundColor="{StaticResource Primary}" CornerRadius="5">
+                <Label  Text="{Binding ButtonLabel, Mode=TwoWay}" TextColor="White" FontSize="18" FontAttributes="Bold" Margin="5" HorizontalTextAlignment="Center"/>
+                <pancakeview:PancakeView.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding OnSearchByCodeCommand}" CommandParameter="{Binding Code}"/>
+                </pancakeview:PancakeView.GestureRecognizers>
+                <pancakeview:PancakeView.Shadow>
+                    <pancakeview:DropShadow Color="#000000" Offset="10,10" />
+                </pancakeview:PancakeView.Shadow>
+            </pancakeview:PancakeView>
+            <BoxView HeightRequest="2" BackgroundColor="{StaticResource Comment}" HorizontalOptions="FillAndExpand" />
+            <StackLayout IsVisible="{Binding ShowFields}">
+                <Grid RowSpacing="5" Margin="10" x:Name="items">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <StackLayout Grid.Row="0" Spacing="0">
+                        <Label  Text="DNI" TextColor="Black" FontSize="16" VerticalTextAlignment="Start"/>
+                        <controls:CustomEntry x:Name="dniField" Placeholder="Ingrese su nro de DNI" Keyboard="Numeric" Text="{Binding Data.Dni}" IsEnabled="False"/>
+                    </StackLayout>
+                    <StackLayout Grid.Row="1">
+                        <Label Text="Apellido" TextColor="Black" FontSize="16" VerticalTextAlignment="Start"/>
+                        <controls:CustomEntry x:Name="apellidoField" HorizontalOptions="FillAndExpand" Placeholder="Ingrese apellido" Text="{Binding Data.Surname, Mode=TwoWay}" TextChanged="CustomEntry_TextChanged"/>
+                    </StackLayout>
+                    <StackLayout Grid.Row="2">
+                        <Label Text="Nombre" TextColor="Black" FontSize="16" VerticalTextAlignment="Start"/>
+                        <controls:CustomEntry x:Name="nameField" HorizontalOptions="FillAndExpand" Placeholder="Ingrese nombre/s" Text="{Binding Data.Name, Mode=TwoWay}" TextChanged="CustomEntry_TextChanged"/>
+                    </StackLayout>
+                    <StackLayout Grid.Row="3">
+                        <Label Text="Localidad" TextColor="Black" FontSize="16" VerticalTextAlignment="Start"/>
+                        <controls:CustomPicker x:Name="localidadPicker" HorizontalOptions="FillAndExpand" SelectedIndex="0" 
+                            ItemsSource="{Binding Cities, Source={RelativeSource AncestorType={x:Type viewModels:FamilyDataViewModel}}}" Title="Seleccione localidad" 
+                            TitleColor="{StaticResource Comment}" ItemDisplayBinding="{Binding Descripcion}"
+                            SelectedItem="{Binding SelectedCity}" SelectedIndexChanged="localidadPicker_SelectedIndexChanged"/>
+                        <BoxView Margin="0,-5,0,5" HeightRequest="1" Color="{StaticResource Primary}" HorizontalOptions="FillAndExpand"/>
+                    </StackLayout>
+                    <StackLayout Grid.Row="4" x:Name="addressInput" Spacing="0">
+                        <Label Text="Domicilio" TextColor="Black" FontSize="16" VerticalTextAlignment="Start"/>
+                        <controls:CustomEntry x:Name="domicilioField" HorizontalOptions="FillAndExpand" Placeholder="Ingrese domicilio" Text="{Binding Data.Address, Mode=TwoWay}" TextChanged="CustomEntry_TextChanged"/>
+                    </StackLayout>
+                    <StackLayout Grid.Row="5" x:Name="membersInput" Spacing="0">
+                        <Label Text="Cantidad de integrantes de grupo familiar" TextColor="Black" FontSize="16" VerticalTextAlignment="Start"/>
+                        <controls:CustomEntry x:Name="integrantesField"  HorizontalOptions="FillAndExpand" Keyboard="Numeric"
+                           Placeholder="Ingrese numero de integrantes" Text="{Binding Data.MembersQty, Mode=TwoWay}" TextChanged="CustomEntry_TextChanged">
+                            <controls:CustomEntry.Behaviors>
+                                <behavior:NumericValidator />
+                            </controls:CustomEntry.Behaviors>
+                        </controls:CustomEntry>
+                    </StackLayout>
+                    <StackLayout Grid.Row="6">
+                        <Label Text="Telefono" TextColor="Black" FontSize="16" VerticalTextAlignment="Start"/>
+                        <controls:CustomEntry x:Name="telefonoField" HorizontalOptions="FillAndExpand" Keyboard="Telephone" Placeholder="Ingrese telefono de contacto" Text="{Binding Data.Phone, Mode=TwoWay}" TextChanged="CustomEntry_TextChanged">
+                            <controls:CustomEntry.Behaviors>
+                                <behavior:NumericValidator />
+                            </controls:CustomEntry.Behaviors>
+                        </controls:CustomEntry>
+                    </StackLayout>
+                    <StackLayout Grid.Row="7">
+                        <Label Text="Correo electronico (opcional)" TextColor="Black" FontSize="16" VerticalTextAlignment="Start"/>
+                        <controls:CustomEntry x:Name="correoField" HorizontalOptions="FillAndExpand" Placeholder="Ingrese un correo electronico" Keyboard="Email" Text="{Binding Data.Email, Mode=TwoWay}" TextChanged="CustomEntry_TextChanged">
+                            <controls:CustomEntry.Behaviors>
+                                <behavior:EmailValidator />
+                            </controls:CustomEntry.Behaviors>
+                        </controls:CustomEntry>
+                    </StackLayout>
+
+
+                    <StackLayout Grid.Row="8" Spacing="0">
+                        <Label Text="Código Aspersor" TextColor="Black" FontSize="14" VerticalTextAlignment="Start"/>
+                        <controls:CustomEntry x:Name="codeEntry1" IsEnabled="False" HorizontalOptions="FillAndExpand" Text="{Binding Data.Code, Mode=TwoWay}" Placeholder="Código" TextChanged="CustomEntry_TextChanged">
+                            <controls:CustomEntry.Behaviors>
+                                <behavior:TrapValidator />
+                            </controls:CustomEntry.Behaviors>
+                        </controls:CustomEntry>
+                        
+                    </StackLayout>
+                </Grid>
+                <StackLayout Margin="10" Orientation="Vertical" VerticalOptions="Center" Spacing="30">
+
+                    <pancakeview:PancakeView BackgroundColor="{StaticResource Primary}" CornerRadius="5" IsEnabled="{Binding SaveButtonEnabled}">
+                        <Label  Text="Guardar cambios" TextColor="White" FontSize="18" FontAttributes="Bold" Margin="5" HorizontalTextAlignment="Center"/>
+                        <pancakeview:PancakeView.Triggers>
+                            <Trigger TargetType="pancakeview:PancakeView" Property="IsEnabled" Value="False">
+                                <Setter Property="BackgroundColor" Value="Gray"/>
+                            </Trigger>
+                        </pancakeview:PancakeView.Triggers>
+                        <pancakeview:PancakeView.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding OnSaveDataChangesCommand}"/>
+                        </pancakeview:PancakeView.GestureRecognizers>
+                        <pancakeview:PancakeView.Shadow>
+                            <pancakeview:DropShadow Color="#000000" Offset="10,10" />
+                        </pancakeview:PancakeView.Shadow>
+                    </pancakeview:PancakeView>
+                </StackLayout>
+                <StackLayout Margin="10" Orientation="Vertical" VerticalOptions="Center" Spacing="30">
+
+                    <pancakeview:PancakeView BackgroundColor="{StaticResource Primary}" CornerRadius="5">
+                        <Label  Text="Registrar visita" TextColor="White" FontSize="18" FontAttributes="Bold" Margin="5" HorizontalTextAlignment="Center"/>
+                        <pancakeview:PancakeView.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding OnRecordsListCommand}" CommandParameter="{Binding Data.Dni}"/>
+                        </pancakeview:PancakeView.GestureRecognizers>
+                        <pancakeview:PancakeView.Shadow>
+                            <pancakeview:DropShadow Color="#000000" Offset="10,10" />
+                        </pancakeview:PancakeView.Shadow>
+                    </pancakeview:PancakeView>
+                </StackLayout>
+            </StackLayout>
+           
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"             
+             Shell.NavBarIsVisible="False"
+             ControlTemplate="{StaticResource BasePageTemplate}"
+             xmlns:pancakeview="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             x:Class="CasosSospechososMI.UI.Records.Views.RecordsPage"
+             xmlns:viewModels="clr-namespace:CasosSospechososMI.UI.Records.ViewModels">
+    <ContentPage.Content>
+        <StackLayout Margin="25,10">
+            <Label Margin="20,20" Text="Mis Registros" TextColor="Black" FontAttributes="Bold"
+                   FontSize="25" VerticalTextAlignment="Center" HorizontalOptions="Start"/>
+            <!--<StackLayout HorizontalOptions="Center" VerticalOptions="Center" Margin="20" IsVisible="{Binding HasSamples}">-->
+            <StackLayout HorizontalOptions="Center" VerticalOptions="Center" Margin="20">
+                <pancakeview:PancakeView BackgroundColor="{StaticResource Primary}" CornerRadius="5" IsEnabled="True" VerticalOptions="Center">
+
+                    <Label Text="Registrar Muestra" TextColor="White" FontSize="18" FontAttributes="Bold" HorizontalTextAlignment="Center" Margin="20,5"/>
+                    <pancakeview:PancakeView.Shadow>
+                        <pancakeview:DropShadow Color="#000000" Offset="10,10" />
+                    </pancakeview:PancakeView.Shadow>
+                    <pancakeview:PancakeView.Triggers>
+                        <Trigger TargetType="pancakeview:PancakeView" Property="IsEnabled" Value="False">
+                            <Setter Property="BackgroundColor" Value="Gray"/>
+                        </Trigger>
+                    </pancakeview:PancakeView.Triggers>
+                    <pancakeview:PancakeView.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding SampleRecordCommand}"/>
+                    </pancakeview:PancakeView.GestureRecognizers>
+                </pancakeview:PancakeView>
+            </StackLayout>
+            <StackLayout Margin="0,10" IsVisible="{Binding HasSamples}" Orientation="Vertical">
+                <Grid>
+                    
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width=".15*"/>
+                    <ColumnDefinition Width=".45*"/>
+                    <ColumnDefinition Width=".3*"/>
+                    <ColumnDefinition Width=".1*"/>
+                </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" Text="#" TextColor="{StaticResource Comment}" FontSize="18" HorizontalTextAlignment="Center"/>
+                    <Label Grid.Column="1" Text="Fecha" TextColor="{StaticResource Comment}" FontSize="18" HorizontalTextAlignment="Center"/>
+                    <Label Grid.Column="2" Text="Estado" TextColor="{StaticResource Comment}" FontSize="18" HorizontalTextAlignment="Center"/>
+                    <Label Grid.Column="3" Text=" " TextColor="{StaticResource Comment}" FontSize="18" HorizontalTextAlignment="Center"/>
+            </Grid>
+                <BoxView BackgroundColor="{StaticResource Comment}" HeightRequest="1" HorizontalOptions="FillAndExpand"/>
+            </StackLayout>
+            <CollectionView
+                Margin="0,10"
+                HorizontalOptions="Center"
+                ItemsSource="{Binding Muestras}">
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.EmptyView>
+                    <StackLayout>
+                        <Label
+                            Margin="10,0,10,10"
+                            FontAttributes="Bold"
+                            FontSize="18"
+                            HorizontalOptions="CenterAndExpand"
+                            HorizontalTextAlignment="Center"
+                            Text="No posee muestras registradas"
+                            TextColor="{StaticResource Comment}"
+                            VerticalOptions="CenterAndExpand" />
+                    </StackLayout>
+                </CollectionView.EmptyView>
+                <CollectionView.ItemTemplate
+                    Margin="5,0"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center">
+                    <DataTemplate>
+                        <Grid Margin="0,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width=".15*"/>
+                                <ColumnDefinition Width=".45*"/>
+                                <ColumnDefinition Width=".3*"/>
+                                <ColumnDefinition Width=".1*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0" Text="{Binding Id}" TextColor="{Binding EstadoColor}" FontSize="18" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+                            <Label Grid.Column="1" Text="{Binding FechaCargaFormatted}" TextColor="{Binding EstadoColor}" FontSize="18" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+                            <Label Grid.Column="2" Text="{Binding Estado}" TextColor="{Binding EstadoColor}" FontSize="18" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+                            <Label Grid.Column="3"  Text=">" TextColor="{StaticResource Comment}" FontSize="18" HorizontalTextAlignment="Center" VerticalTextAlignment="Center">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:RecordsViewModel}}, Path=RecordDetailCommand}"
+                                        CommandParameter="{Binding .}"
+                                        NumberOfTapsRequired="1" />
+                                </Label.GestureRecognizers>
+                            </Label>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

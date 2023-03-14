@@ -1,0 +1,60 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32630.194
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspersoresMI.Android", "AspersoresMI\AspersoresMI.Android\AspersoresMI.Android.csproj", "{1CA9A82F-D260-42DB-9DEE-0F207538E87D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspersoresMI", "AspersoresMI\AspersoresMI\AspersoresMI.csproj", "{D545AA8E-BB38-4AA5-A7B0-441F21C8F9AB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{7C139E52-AF03-4499-82F3-B74330C0007F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspersoresMI.Domain", "AspersoresMI.App.Domain\AspersoresMI.Domain.csproj", "{AE73F9F4-6295-4844-8FFE-E971FFFF4708}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspersoresMI.Services", "AspersoresMI.Services\AspersoresMI.Services.csproj", "{9713AE8E-6478-4287-966B-275B79344F90}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspersoresMI.UseCases", "AspersoresMI.UseCases\AspersoresMI.UseCases.csproj", "{5537C071-F4F2-4C3C-AB77-416EB070D5FC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1CA9A82F-D260-42DB-9DEE-0F207538E87D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1CA9A82F-D260-42DB-9DEE-0F207538E87D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1CA9A82F-D260-42DB-9DEE-0F207538E87D}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{1CA9A82F-D260-42DB-9DEE-0F207538E87D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1CA9A82F-D260-42DB-9DEE-0F207538E87D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1CA9A82F-D260-42DB-9DEE-0F207538E87D}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{D545AA8E-BB38-4AA5-A7B0-441F21C8F9AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D545AA8E-BB38-4AA5-A7B0-441F21C8F9AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D545AA8E-BB38-4AA5-A7B0-441F21C8F9AB}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{D545AA8E-BB38-4AA5-A7B0-441F21C8F9AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D545AA8E-BB38-4AA5-A7B0-441F21C8F9AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D545AA8E-BB38-4AA5-A7B0-441F21C8F9AB}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{AE73F9F4-6295-4844-8FFE-E971FFFF4708}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE73F9F4-6295-4844-8FFE-E971FFFF4708}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE73F9F4-6295-4844-8FFE-E971FFFF4708}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE73F9F4-6295-4844-8FFE-E971FFFF4708}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9713AE8E-6478-4287-966B-275B79344F90}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9713AE8E-6478-4287-966B-275B79344F90}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9713AE8E-6478-4287-966B-275B79344F90}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9713AE8E-6478-4287-966B-275B79344F90}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5537C071-F4F2-4C3C-AB77-416EB070D5FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5537C071-F4F2-4C3C-AB77-416EB070D5FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5537C071-F4F2-4C3C-AB77-416EB070D5FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5537C071-F4F2-4C3C-AB77-416EB070D5FC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{AE73F9F4-6295-4844-8FFE-E971FFFF4708} = {7C139E52-AF03-4499-82F3-B74330C0007F}
+		{9713AE8E-6478-4287-966B-275B79344F90} = {7C139E52-AF03-4499-82F3-B74330C0007F}
+		{5537C071-F4F2-4C3C-AB77-416EB070D5FC} = {7C139E52-AF03-4499-82F3-B74330C0007F}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3AD0AC9E-25C7-4939-8331-44BB58AE852F}
+	EndGlobalSection
+EndGlobal
