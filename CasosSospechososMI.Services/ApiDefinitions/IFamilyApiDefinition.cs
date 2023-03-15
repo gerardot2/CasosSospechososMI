@@ -16,7 +16,7 @@ namespace CasosSospechososMI.Services.ApiDefinitions
     {
         [Get("/api/procev/aspersor/home")]
         Task<HomeDataModel> GetFamilyHomeData(CancellationToken ct);
-        [Get("/api/procev/aspersor/homeSup")]
+        [Get("/api/procev/casos/homeAgente")]
         Task<HomeDataSupervisorModel> GetSupervisorHomeData(CancellationToken ct);
         [Get("/api/procev/usuarios/{tipo}/getUserId")]
         Task<OperationResult<FamilyDataModel>> GetFamilyData(CancellationToken ct, int tipo);
@@ -27,7 +27,7 @@ namespace CasosSospechososMI.Services.ApiDefinitions
         Task<OperationResult<List<FormModel>>> GetFormItems(CancellationToken ct, int tipo);
 
         [Multipart]
-        [Post("/api/procev/aspersor/registrar_muestra")]
+        [Post("/api/procev/casos/registrar_caso")]
         Task<OperationResult<ResponseGeneric>> RegisterSample([AliasAs("res1")] string Res1,
                                                               [AliasAs("res2")] string Res2,
                                                               [AliasAs("res3")] string Res3,

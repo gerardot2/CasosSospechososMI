@@ -6,6 +6,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="UI\Selector\**" />
+    <EmbeddedResource Remove="UI\Selector\**" />
+    <None Remove="UI\Selector\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Remove="UI\Visit\ViewModels\VisitRecordingViewModel.cs" />
     <Compile Remove="UI\Visit\Views\VisitRecordingPage.xaml.cs" />
   </ItemGroup>
@@ -58,9 +64,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="SupervisorShell.xaml.cs">
-      <DependentUpon>SupervisorShell.xaml</DependentUpon>
-    </Compile>
     <Compile Update="UI\Common\Views\ConfirmPopup.xaml.cs">
       <DependentUpon>ConfirmPopup.xaml</DependentUpon>
     </Compile>
@@ -116,9 +119,6 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="UI\Sample\Views\SampleRecordingView.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="UI\Selector\Views\SelectorPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="UI\Visit\Views\VisitListPage.xaml">

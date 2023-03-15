@@ -19,12 +19,12 @@ namespace CasosSospechososMI.UseCases.Account
 
         }
 
-        public async Task<OperationResult<ResponseGeneric>> Invoke(CancellationToken ct, RegisterModel registerModel, bool supervisor)
+        public async Task<OperationResult<ResponseGeneric>> Invoke(CancellationToken ct, RegisterModel registerModel)
         {
             var response = new OperationResult<ResponseGeneric>();
             try
             {
-                return await _accountService.RequestRegistrationAsync(ct, registerModel, supervisor);
+                return await _accountService.RequestRegistrationAsync(ct, registerModel);
             }
             catch (TaskCanceledException ex)
             {

@@ -55,10 +55,10 @@ namespace CasosSospechososMI.UI.Home.ViewModels
             UpdateHomeUserData updateHomeUserData,
             GetWhatsappNumber getWhatsapp,
             GetActualUser getActualUser,
-            GetHomeUserSupervisorData getHomeUserSupervisorData,
             GetSampleForm getSampleForm,
             PostSampleRecord postSampleRecord,
             PostVisitRecord postVisitRecord,
+            GetHomeUserSupervisorData getSupervisorData,
             UpdateActualUser updateActualUser,
             GetLastVersion getLastVersion) : base(routingService)
         {
@@ -68,12 +68,12 @@ namespace CasosSospechososMI.UI.Home.ViewModels
             _updateHomeUserData = updateHomeUserData;
             _getWhatsapp = getWhatsapp;
             _getActual = getActualUser;
-            _getSuperData = getHomeUserSupervisorData;
             _getSampleForm = getSampleForm;
             _postSampleRecord = postSampleRecord;
             _postVisitRecord = postVisitRecord;
             _updateActualUser = updateActualUser;
             _getLastVersion = getLastVersion;
+            _getSuperData = getSupervisorData;
 
             Title = "About";
             OpenWebCommand = new Command(async () => await Browser.OpenAsync("https://aka.ms/xamarin-quickstart"));
@@ -141,18 +141,12 @@ namespace CasosSospechososMI.UI.Home.ViewModels
             if (IsBusy) return;
             IsBusy = true;
             var actualUser =  _getActual.Invoke();
-            IsSupervisor = actualUser.Supervisor;
             
-            var result = await _getHomeData.Invoke(CancellationTokenSource.Token,IsSupervisor);
+            var result = await _getHomeData.Invoke(CancellationTokenSource.Token);
             if (result != null)
             {
-                if (actualUser.Supervisor) {
                     HomeSupervisorData = (HomeDataSupervisorModel)result;
-                }
-                else
-                {
-                    HomeData = result;
-                }
+                
                 if (!string.IsNullOrEmpty(result.AvisoCabecera) && !string.IsNullOrEmpty(result.AvisoTexto))
                 {
                     await OpenResultWindow(result.AvisoCabecera,result.AvisoTexto);
@@ -160,20 +154,13 @@ namespace CasosSospechososMI.UI.Home.ViewModels
             }
             else
             {
-                if (!actualUser.Supervisor)
-                {
-                    var storedFamilyData = _getHomeUserData.Invoke();
-                    if (storedFamilyData != null) HomeData = storedFamilyData;
-                }
-                else
-                {
-                    var storedSupervisorData = _getSuperData.Invoke();
-                    if (storedSupervisorData != null) HomeSupervisorData = storedSupervisorData;
-                }
+                
+                var storedSupervisorData = _getSuperData.Invoke();
+                if (storedSupervisorData != null) HomeSupervisorData = storedSupervisorData;
                 
             }
 
-            await CheckCachedData(actualUser.Supervisor);
+            await CheckCachedData();
             if (IsConnected)
             {
 
@@ -186,11 +173,11 @@ namespace CasosSospechososMI.UI.Home.ViewModels
             if (actualUser.Supervisor && HomeSupervisorData == null) await OpenResultWindow("Error de Datos", "Hubo un error obteniendo datos.\nSi el error persiste, cierre sesión y vuelva a ingresar.");
         }
 
-        private async Task CheckCachedData(bool supervisor)
+        private async Task CheckCachedData()
         {
             OperationResult<List<FormModel>> formModel;
             var resp = new OperationResult<List<FormModel>>();
-            Akavache.Registrations.Start("MosquitrampaMI");
+            Akavache.Registrations.Start("CasosSospechososMI");
             var keys = await BlobCache.LocalMachine.GetAllKeys();
             if (keys.Contains("formModel"))
             {
@@ -223,34 +210,19 @@ namespace CasosSospechososMI.UI.Home.ViewModels
                     if (keys.Contains("sampleModel"))
                     {
                         var result = new OperationResult<ResponseGeneric>();
-                        if (IsSupervisor)
-                        {
-                            var sampleSuperv = await BlobCache.LocalMachine.GetObject<(FormRecordModel FormRecord, byte[] Image, string Code)>("sampleModel");
-                            StreamPart image = ConvertByteToStreamPart(sampleSuperv.Image);
-                            result = await _postVisitRecord.Invoke(CancellationTokenSource.Token,sampleSuperv.FormRecord,image,sampleSuperv.Code);
+                        
+                        var sampleSuperv = await BlobCache.LocalMachine.GetObject<(FormRecordModel FormRecord, byte[] Image, string Code)>("sampleModel");
+                        StreamPart image = ConvertByteToStreamPart(sampleSuperv.Image);
+                        result = await _postVisitRecord.Invoke(CancellationTokenSource.Token,sampleSuperv.FormRecord,image,sampleSuperv.Code);
                            
-                        }
-                        else
-                        {
-                            var sampleFamily = await BlobCache.LocalMachine.GetObject<(FormRecordModel FormRecord, byte[] Image)>("sampleModel");
-                            StreamPart image = ConvertByteToStreamPart(sampleFamily.Image);
-                            result = await _postSampleRecord.Invoke(CancellationTokenSource.Token, sampleFamily.FormRecord, image);
-                            
-                        }
+                        
                         if (result != null && int.Parse(result.Codigo) == 0)
                         {
-                            if (IsSupervisor)
-                            {
-                                await BlobCache.LocalMachine.InvalidateObject<(FormRecordModel, byte[], string)>("sampleModel");
-                                var update = _getActual.Invoke();
-                                if (update != null) { update.HasCachedRecord = false; _updateActualUser.Invoke(update); };
-                            }
-                            else
-                            {
-                                await BlobCache.LocalMachine.InvalidateObject<(FormRecordModel, byte[])>("sampleModel");
-                                var update = _getActual.Invoke();
-                                if (update != null) { update.HasCachedRecord = false; _updateActualUser.Invoke(update); };
-                            }
+                           
+                            await BlobCache.LocalMachine.InvalidateObject<(FormRecordModel, byte[], string)>("sampleModel");
+                            var update = _getActual.Invoke();
+                            if (update != null) { update.HasCachedRecord = false; _updateActualUser.Invoke(update); };
+                            
                         }
                     }
 

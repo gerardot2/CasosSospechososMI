@@ -4,7 +4,6 @@ using CasosSospechososMI.Models;
 using CasosSospechososMI.Services;
 using CasosSospechososMI.Services.Account.Interfaces;
 using CasosSospechososMI.UI.Login.Views;
-using CasosSospechososMI.UI.Selector.Views;
 using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;

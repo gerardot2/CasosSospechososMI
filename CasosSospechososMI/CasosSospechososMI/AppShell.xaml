@@ -95,16 +95,20 @@
      <Tab x:Name="homeTab" Title="Home" Icon="homa.png" Route="AboutPage">
         <ShellContent ContentTemplate="{DataTemplate home:AboutPage}" />
     </Tab>
-        <Tab x:Name="sampleTab" Title="Registrar Muestra" Icon="records_icon.png" Route="SampleRecording">
+        <Tab x:Name="sampleTab" Title="Registrar Caso" Icon="records_icon.png" Route="SampleRecording">
             <ShellContent  ContentTemplate="{DataTemplate sample:SampleRecordingView}" />
     </Tab>
-        <Tab x:Name="dataTab" Title="Mis Datos" Route="MyDataPage" Icon="my_data.png">
-            <ShellContent ContentTemplate="{DataTemplate local:MyDataPage}" />
-     </Tab>
-
         <Tab x:Name="recordsTab" Title="Ver Registros" Route="ItemsPage" Icon="boton_de_lista.png">
             <ShellContent ContentTemplate="{DataTemplate records:RecordsPage}" />
         </Tab>
+        <Tab x:Name="dataTab" Title="Mis Datos" Route="MyDataPage" Icon="my_data.png">
+            <ShellContent ContentTemplate="{DataTemplate local:MyDataPage}" />
+     </Tab>
+        <Tab x:Name="dataTab" Title="Ver Protocolo Sanitario" Route="MyDataPage" Icon="my_data.png">
+            <ShellContent ContentTemplate="{DataTemplate local:MyDataPage}" />
+     </Tab>
+        
+
 
 
 

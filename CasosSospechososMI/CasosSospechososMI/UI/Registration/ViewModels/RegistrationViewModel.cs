@@ -80,22 +80,15 @@ namespace CasosSospechososMI.UI.Registration.ViewModels
             if (IsBusy) return;
             IsBusy = true;
             RegisterModel.CityId = (SelectedCity != null) ? (int)SelectedCity.Id : 0;
-            RegisterModel.RoleId = IsSupervisor ? 3: 4 ;
-            if (RegisterModel.IsFulFilled || (RegisterModel.IsSupervisorFulFilled && PassMatch))
+            if (RegisterModel.IsSupervisorFulFilled && PassMatch)
             {
-                var result = await _registrationService.Invoke(CancellationTokenSource.Token, RegisterModel, IsSupervisor);
-                if (result != null && int.Parse(result.Codigo) == 0 && !IsSupervisor)
+                var result = await _registrationService.Invoke(CancellationTokenSource.Token, RegisterModel);
+                if (result != null && int.Parse(result.Codigo) == 0)
                 {
                     IsBusy = false;
 
-                    await OpenResultWindow("Registro", "¡Se ha registrado con éxito!\n\nInicie sesión con sus datos.", Pr_GoToLogin);
-
-                }
-                else if (result != null && int.Parse(result.Codigo) == 0 && IsSupervisor)
-                {
-                    IsBusy = false;
-
-                    await OpenResultWindow("Registro", "¡Se ha registrado con éxito!\n\nPodrá ingresar luego de que un administrador lo habilite.", Pr_GoToLogin);
+                    await OpenResultWindow("Registro", "¡Se ha registrado con éxito!\n\nUn administrador revisará sus datos y lo habilitará para poder ingresar.",
+                        Pr_GoToLogin);
 
                 }
                 else if (result != null && result.Mensaje != null && int.Parse(result.Codigo) > 0)

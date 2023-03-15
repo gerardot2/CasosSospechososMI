@@ -95,7 +95,7 @@ namespace CasosSospechososMI.Services.Account
                 return CrossSettings.Current;
             }
         }
-        private async Task<OperationResult<ResponseGeneric>> RegistrationAsync(CancellationToken ct, string registerModel, bool supervisor)
+        private async Task<OperationResult<ResponseGeneric>> RegistrationAsync(CancellationToken ct, string registerModel)
         {
             //var response = await _apiService.GetRestService<IAccountApiDefinition>().Registration(ct, registerModel);
             //return response;
@@ -112,8 +112,7 @@ namespace CasosSospechososMI.Services.Account
             .Accept
             .Add(new MediaTypeWithQualityHeaderValue("application/x-www-form-urlencoded"));
 
-            var url = supervisor ? string.Format("{0}api/procev/aspersor/register_supervisor", _httpClient.BaseAddress) :
-            string.Format("{0}api/procev/aspersor/register", _httpClient.BaseAddress);
+            var url = string.Format("{0}api/procev/casos/register", _httpClient.BaseAddress);
 
             var uri = new Uri(url);
 
@@ -131,9 +130,9 @@ namespace CasosSospechososMI.Services.Account
             return responseFinal;
         }
 
-        public async Task<OperationResult<ResponseGeneric>> RequestRegistrationAsync(CancellationToken ct, RegisterModel registerModel, bool supervisor)
+        public async Task<OperationResult<ResponseGeneric>> RequestRegistrationAsync(CancellationToken ct, RegisterModel registerModel)
         {
-            var param = supervisor ? ( string.IsNullOrEmpty(registerModel.Email) ? $@"nombre={registerModel.Name
+            var param = string.IsNullOrEmpty(registerModel.Email) ? $@"nombre={registerModel.Name
                             }&apellido={registerModel.Surname
                             }&dni={registerModel.Dni
                             }&id_localidad={registerModel.CityId
@@ -148,20 +147,9 @@ namespace CasosSospechososMI.Services.Account
                             }&id_localidad={registerModel.CityId
                             }&domicilio={registerModel.Address
                             }&telefono={registerModel.Phone
-                            }&password={registerModel.Password}") :
+                            }&password={registerModel.Password}";
 
-                            $@"nombre={registerModel.Name
-                            }&apellido={registerModel.Surname
-                            }&dni={registerModel.Dni
-                            }&id_localidad={registerModel.CityId
-                            }&cantidad={registerModel.MembersQty
-                            }&domicilio={registerModel.Address
-                            }&codigo={registerModel.Code
-                            }&email={registerModel.Email
-                            }&telefono={registerModel.Phone
-                            }&id_role={registerModel.RoleId}";
-
-            return await RegistrationAsync(ct, param, supervisor);
+            return await RegistrationAsync(ct, param);
         }
         public async Task<LoginStateEnum> GetLoginStateAsync(CancellationToken ct)
         {
@@ -202,7 +190,7 @@ namespace CasosSospechososMI.Services.Account
 
         //    return await RequestAuthTokenAsync(ct, param);
         //} 
-        public async Task<bool> RequestAuthTokenAsync(CancellationToken ct, string dni, string password, string trapCode)
+        public async Task<bool> RequestAuthTokenAsync(CancellationToken ct, string dni, string password)
         {
             try
             {
@@ -218,18 +206,8 @@ namespace CasosSospechososMI.Services.Account
                 //.Add(new MediaTypeWithQualityHeaderValue("application/x-www-form-urlencoded"));
 
                 string url;
-                if (string.IsNullOrWhiteSpace(trapCode) && !string.IsNullOrWhiteSpace(password))
-                {
-                    string endpoint = $"api/procev/aspersor/login_sup?dni={dni}&password={password}";
-                    url = string.Format("{0}{1}", _httpClient.BaseAddress,endpoint);
-                }
-                else
-                
-                {
-                    string endpoint = $"api/procev/aspersor/login?dni={dni}&codigo={trapCode}";
-                    url = string.Format("{0}{1}", _httpClient.BaseAddress,endpoint);
-
-                }
+                string endpoint = $"api/procev/casos/login_agente?dni={dni}&password={password}";
+                url = string.Format("{0}{1}", _httpClient.BaseAddress,endpoint);
 
                 var uri = new Uri(url);
 
@@ -257,8 +235,6 @@ namespace CasosSospechososMI.Services.Account
                         user.DocumentNumber = Convert.ToInt32(dni);
                         user.Name = token.Nombre;
                         user.SurName = token.Apellido;
-                        user.UserType = string.IsNullOrWhiteSpace(password) ? UserTypeEnum.AssociatedFamily : UserTypeEnum.Supervisor;
-                        user.Supervisor = !string.IsNullOrWhiteSpace(password);
                         user.UserId = token.UserId;
                         user.Role = token.RoleId;
                         ActualUser = user;

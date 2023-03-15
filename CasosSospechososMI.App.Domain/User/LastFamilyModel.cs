@@ -28,5 +28,7 @@ namespace CasosSospechososMI.Domain.User
         public string Domicilio { get; set; }
         [JsonPropertyName("localidad")]
         public string Localidad { get; set; }
+        [JsonPropertyName("resultado")]
+        public string Resultado { get; set; }
     }
 }

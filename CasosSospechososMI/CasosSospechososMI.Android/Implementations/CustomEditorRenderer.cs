@@ -31,7 +31,7 @@ namespace CasosSospechososMI.Droid.Implementations
                 Control.Background = Xamarin.Forms.Forms.Context.GetDrawable(Resource.Drawable.RoundedEditor);
                 Control.SetRawInputType(InputTypes.TextFlagNoSuggestions);
                 EditText nativeEditText = (global::Android.Widget.EditText)Control;
-                nativeEditText.SetTextCursorDrawable(Resource.Drawable.cursorLine);
+                nativeEditText.SetTextCursorDrawable(Resource.Drawable.CursorLine);
                 
             }
         }

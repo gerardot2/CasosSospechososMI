@@ -19,7 +19,7 @@ namespace CasosSospechososMI.Services.Account.Interfaces
         DateTime LastSentSample { get; set; }
         Task LogOff(CancellationToken ct);
         Task<LoginStateEnum> GetLoginStateAsync(CancellationToken ct);
-        Task<bool> RequestAuthTokenAsync(CancellationToken ct, string dni, string password, string trapCode);
-        Task<OperationResult<ResponseGeneric>> RequestRegistrationAsync(CancellationToken ct, RegisterModel registerModel, bool supervisor = false);
+        Task<bool> RequestAuthTokenAsync(CancellationToken ct, string dni, string password);
+        Task<OperationResult<ResponseGeneric>> RequestRegistrationAsync(CancellationToken ct, RegisterModel registerModel);
     }
 }

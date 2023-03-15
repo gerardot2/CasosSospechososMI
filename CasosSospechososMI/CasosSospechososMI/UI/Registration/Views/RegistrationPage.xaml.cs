@@ -19,20 +19,6 @@ namespace CasosSospechososMI.UI.Registration.Views
             InitializeComponent();
             _viewModel = App.ServiceProvider.GetService<RegistrationViewModel>();
             
-            if (supervisor)
-            {
-                //items.Children.Remove(addressInput);
-                items.Children.Remove(membersInput);
-                items.Children.Remove(codeInput);
-                //addressInput.IsVisible = false;
-                //membersInput.IsVisible = false;
-                //codeInput.IsVisible = false;
-            }
-            else
-            {
-                items.Children.Remove(passInput);
-                items.Children.Remove(passRepInput);
-            }
             this.BindingContext = _viewModel;
             passRepEntry.IsPassword = true;
             passEntry.IsPassword = true;
@@ -50,22 +36,6 @@ namespace CasosSospechososMI.UI.Registration.Views
 
             _viewModel.CancellationTokenSource.Cancel();
             _viewModel.IsBusy = false;
-        }
-        private async void TapGestureRecognizer_Tapped(object sender, EventArgs e)
-        {
-            try
-            {
-                var scanner = new ZXing.Mobile.MobileBarcodeScanner();
-                var result = await scanner.Scan();
-                if (result != null)
-                {
-                    codeEntry.Text = result.Text;
-                }
-            }
-            catch (Exception ex)
-            {
-                await DisplayAlert("Error","Intente capturar nuevamente el código.","Aceptar");
-            }
         }
 
         private void CustomEntry_TextChanged(object sender, TextChangedEventArgs e)

@@ -27,27 +27,18 @@ namespace CasosSospechososMI.UseCases.Account
             _getActual = getActual;
         }
 
-        public async Task<HomeDataModel> Invoke(CancellationToken ct, bool isSupervisor)
+        public async Task<HomeDataModel> Invoke(CancellationToken ct)
         {
             var actual = _getActual.Invoke();
-            //var user = new HomeQuery()
-            //{
-            //    TipoAplicacion = actual.Supervisor ? "1" : "2"
-            //};
 
             try
             {
                 var resp = new HomeDataModel();
                 if (Connectivity.NetworkAccess == NetworkAccess.Internet)
                 {
-                    resp = actual.Supervisor ? await _familyService.GetSupervisorHomeDataAsync(ct) :
-                        await _familyService.GetFamilyHomeDataAsync(ct);
+                    resp = await _familyService.GetSupervisorHomeDataAsync(ct);
 
-                    if (resp !=null && int.Parse(resp.Codigo) == 0 && isSupervisor)
-                    {
-                        _usuarioService.HomeUserSupervisorData = (HomeDataSupervisorModel)resp;
-                    }
-                    else if (resp != null && int.Parse(resp.Codigo) == 0)
+                    if (resp !=null && int.Parse(resp.Codigo) == 0)
                     {
                         _usuarioService.HomeUserData = resp;
                     }
@@ -56,15 +47,7 @@ namespace CasosSospechososMI.UseCases.Account
                 }
                 else
                 {
-                    if (isSupervisor)
-                    {
-                        return _usuarioService.HomeUserSupervisorData;
-                    }
-                    else
-                    {
-                        return _usuarioService.HomeUserData;
-                    }
-
+                    return _usuarioService.HomeUserData;
                 }
                 return resp;
             }

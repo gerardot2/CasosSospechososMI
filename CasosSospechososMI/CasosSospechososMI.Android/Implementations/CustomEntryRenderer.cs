@@ -55,7 +55,7 @@ namespace CasosSospechososMI.Droid.Implementations
             {
                 Control.BackgroundTintList = ColorStateList.ValueOf(Android.Graphics.Color.Rgb(102, 204, 0));
                 EditText nativeEditText = (global::Android.Widget.EditText)Control;
-                nativeEditText.SetTextCursorDrawable(Resource.Drawable.cursorLine);
+                nativeEditText.SetTextCursorDrawable(Resources.GetDrawable(Resource.Drawable.CursorLine));
 
             }
         }

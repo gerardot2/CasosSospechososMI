@@ -16,7 +16,7 @@ namespace CasosSospechososMI.Services
         HttpClient _client;
         public AuthenticatedService(IHttpClientFactory httpClientFactory)
         {
-            _client = httpClientFactory.CreateClient("AspersorClient");
+            _client = httpClientFactory.CreateClient("CasosSospechososClient");
 
             var token = GetAuthToken();
             if (token != null)

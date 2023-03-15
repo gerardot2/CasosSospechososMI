@@ -42,18 +42,13 @@ namespace CasosSospechososMI.UI.Login.ViewModels
             //------------------------------------------------------------
             if ((UserName != null && UserName.Length == 8 && Password != null && Password.Length > 5 && Password.Length < 11) || (UserName != null && UserName.Length == 8 && TrapCode != null))
             {
-                var result = await _accountService.RequestAuthTokenAsync(CancellationTokenSource.Token, UserName, Password, TrapCode);
+                var result = await _accountService.RequestAuthTokenAsync(CancellationTokenSource.Token, UserName, Password);
 
             if (result)
             {
-                if (!_accountService.ActualUser.Supervisor)
-                {
-                    Application.Current.MainPage = new AppShell();
-                }
-                else
-                {
-                    Application.Current.MainPage = new SupervisorShell();
-                }
+                
+                Application.Current.MainPage = new AppShell();
+                
             }
             else
             {
@@ -84,15 +79,7 @@ namespace CasosSospechososMI.UI.Login.ViewModels
                 SetProperty(ref _password, value);
             }
         }
-        string _trapCode;
-        public string TrapCode
-        {
-            get => _trapCode;
-            set
-            {
-                SetProperty(ref _trapCode, value);
-            }
-        }
+        
         #endregion
         #region Actions
 

@@ -32,6 +32,24 @@ namespace CasosSospechososMI.Domain.Family
         public string Latitude { get; set; }
         [AliasAs("longitud")]
         public string Longitude { get; set; }
+        [AliasAs("resultado")]
+        public string Resultado { get; set; }
+        [AliasAs("dni")]
+        public string Dni { get; set; }
+        [AliasAs("apellido")]
+        public string Apellido { get; set; }
+        [AliasAs("nombre")]
+        public string Nombre { get; set; }
+        [AliasAs("cantidad")]
+        public string Cantidad { get; set; }
+        [AliasAs("domicilio")]
+        public string Domicilio { get; set; }
+        [AliasAs("id_localidad")]
+        public string LocalidadId { get; set; }
+        [AliasAs("telefono")]
+        public string Telefono { get; set; }
+        [AliasAs("email")]
+        public string Email { get; set; }
         public bool DataLoaded
         {
             get {
@@ -41,6 +59,15 @@ namespace CasosSospechososMI.Domain.Family
                       || !string.IsNullOrEmpty(Res4)
                       || !string.IsNullOrEmpty(Comment)
                       || !string.IsNullOrEmpty(Date)
+                      || !string.IsNullOrEmpty(Resultado)
+                      || !string.IsNullOrEmpty(Dni)
+                      || !string.IsNullOrEmpty(Nombre)
+                      || !string.IsNullOrEmpty(Apellido)
+                      || !string.IsNullOrEmpty(LocalidadId)
+                      || !string.IsNullOrEmpty(Telefono)
+                      || !string.IsNullOrEmpty(Email)
+                      || !string.IsNullOrEmpty(Cantidad)
+                      || !string.IsNullOrEmpty(Domicilio)
                       || Image != null
                       ;
             }
@@ -50,7 +77,9 @@ namespace CasosSospechososMI.Domain.Family
             get
             {
                 return ResponsesCompleted(FormItemsNumber)
-                      && !string.IsNullOrEmpty(Date)
+                      && !string.IsNullOrEmpty(Date) 
+                      && !string.IsNullOrEmpty(Resultado) 
+                      && !string.IsNullOrEmpty(Dni)
                       && Image != null
                       && !string.IsNullOrEmpty(Latitude)
                       && !string.IsNullOrEmpty(Longitude)
@@ -61,7 +90,8 @@ namespace CasosSospechososMI.Domain.Family
         {
             get
             {
-                return ResponsesCompleted(FormItemsNumber)
+                return ResponsesCompleted(FormItemsNumber) &&
+                    !string.IsNullOrEmpty(Resultado) && !string.IsNullOrEmpty(Dni)
                       && Image != null
                       ;
             }

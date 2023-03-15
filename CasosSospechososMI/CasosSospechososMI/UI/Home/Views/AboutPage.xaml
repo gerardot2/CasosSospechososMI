@@ -43,38 +43,12 @@
         <StackLayout HorizontalOptions="CenterAndExpand" Margin="10" VerticalOptions="Start">
             <Label Text="Inicio" FontFamily=""  FontSize="23" HorizontalTextAlignment="Center" TextColor="Black"/>
         </StackLayout>
-        <StackLayout Margin="15" IsVisible="{Binding IsSupervisor, Converter={StaticResource Inveter}}">
-            <pancakeview:PancakeView BackgroundColor="{StaticResource Comment}" CornerRadius="15">
-                <StackLayout>
-                <Grid Margin="15">
-                    <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="0.7*"/>
-                            <ColumnDefinition Width="0.4*"/>
-                        </Grid.ColumnDefinitions>
-                        <StackLayout Grid.Column="0">
-                            <Label FontSize="18" FontAttributes="Bold" Text="Aspersor :"/>
-                            <Label FontSize="18" FontAttributes="Bold" Text="Muestras registradas :"/>
-                            <Label FontSize="18" FontAttributes="Bold" Text="Fecha última muestra :"/>
-                            <Label FontSize="18" FontAttributes="Bold" Text="Fecha próxima muestra :"/>
-                            <Label FontSize="18" FontAttributes="Bold" Text="Dias para próxima muestra :"/>
-                        </StackLayout>
-                        <StackLayout Grid.Column="1">
-                            <Label FontSize="18" Text="{Binding HomeData.Ovitrampa}"/>
-                            <Label FontSize="18" Text="{Binding HomeData.MuestrasRegistradas}"/>
-                            <Label FontSize="18" Text="{Binding HomeData.FechaUltimaMuestra}" />
-                            <Label FontSize="18" Text="{Binding HomeData.FechaProximaMuestra}" />
-                            <Label x:Name="diasLabel" FontSize="18" Text="{Binding HomeData.DiasParaProximaMuestra}" 
-                                   TextColor="{Binding HomeData.DiasParaProximaMuestra, Converter={StaticResource ColorConverter}}"/>
-                        </StackLayout>
-                    </Grid>
-                </StackLayout>
-            </pancakeview:PancakeView>
-        </StackLayout>
+        
 
-        <StackLayout IsVisible="{Binding IsSupervisor}" Margin="15">
+        <StackLayout Margin="15">
             <pancakeview:PancakeView BackgroundColor="{StaticResource Comment}" CornerRadius="15">
                 <StackLayout>
-                    <Label FontSize="18" FontAttributes="Bold" Text="Última familia :" Margin="15,15,15,0"/>
+                    <Label FontSize="18" FontAttributes="Bold" Text="Último caso registrado:" Margin="15,15,15,0"/>
                     <StackLayout Spacing="0" Margin="15,0,0,0" >
                         <Grid Margin="15,0,0,0" VerticalOptions="Center">
                             <Grid.RowDefinitions>
@@ -89,7 +63,7 @@
                                         <ColumnDefinition Width="0.6*"/>
                                         <ColumnDefinition />
                                     </Grid.ColumnDefinitions>
-                                <Label FontSize="18" FontAttributes="Bold" Text="Código :"/>
+                                <Label FontSize="18" FontAttributes="Bold" Text="DNI :"/>
                                     <Label FontSize="18" Text="{Binding HomeSupervisorData.UltimaFamilia.Codigo}" Grid.Column="1"/>
                                 </Grid>
                                 <Grid Grid.Row="1">
@@ -124,6 +98,20 @@
                                     <Label FontSize="18" FontAttributes="Bold" Text="Localidad :" />
                                     <Label FontSize="18" Text="{Binding HomeSupervisorData.UltimaFamilia.Localidad}" Grid.Column="1" />
                                 </Grid>
+                            <Grid Grid.Row="5" >
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="0.6*"/>
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Label FontSize="18" FontAttributes="Bold" Text="Resultado :" />
+                                <Label FontSize="18" Text="{Binding HomeSupervisorData.UltimaFamilia.Resultado}" Grid.Column="1" TextColor="MediumSeaGreen">
+                                    <Label.Triggers>
+                                        <Trigger TargetType="Label" Property="Text" Value="Positivo">
+                                            <Setter Property="TextColor" Value="Red"/>
+                                        </Trigger>
+                                    </Label.Triggers>
+                                </Label>
+                            </Grid>
                         </Grid>
                         
                     </StackLayout>
@@ -145,13 +133,6 @@
                     </Grid>
                 </StackLayout>
             </pancakeview:PancakeView>
-        </StackLayout>
-        <StackLayout VerticalOptions="End" Orientation="Horizontal" HorizontalOptions="Center" Margin="20" IsVisible="{Binding IsSupervisor, Converter={StaticResource Inveter}}">
-            <ff:CachedImage Source="play_button.png" HeightRequest="40"/>
-            <Label Text="Video Instructivo" VerticalTextAlignment="Center" TextColor="DarkGray" FontSize="16"/>
-            <StackLayout.GestureRecognizers>
-                <TapGestureRecognizer Command="{Binding OnPlayVideoClicked}"/>
-            </StackLayout.GestureRecognizers>
         </StackLayout>
         
         </StackLayout>

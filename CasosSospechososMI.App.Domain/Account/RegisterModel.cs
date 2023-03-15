@@ -56,7 +56,6 @@ namespace CasosSospechososMI.Domain.Account
                     && CityId.HasValue
                     && !string.IsNullOrEmpty(Phone)
                     && !string.IsNullOrEmpty(Address)
-                    && RoleId.HasValue
                     && CheckPassword
                     ;
             }

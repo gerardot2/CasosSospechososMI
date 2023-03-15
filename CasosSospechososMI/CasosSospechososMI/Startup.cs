@@ -13,7 +13,6 @@ using CasosSospechososMI.Services.Common.Interfaces;
 using CasosSospechososMI.Services.Interfaces;
 using CasosSospechososMI.UI.Loading.ViewModels;
 using CasosSospechososMI.UI.Registration.ViewModels;
-using CasosSospechososMI.UI.Selector.ViewModels;
 using CasosSospechososMI.UseCases.Account;
 using CasosSospechososMI.UseCases.Common;
 using CasosSospechososMI.UI.Home.ViewModels;
@@ -86,7 +85,7 @@ namespace CasosSospechososMI
             services.AddSingleton<ICurrentConfiguration>(currentConfiguration);
 
             services.AddHttpClient();
-            services.AddHttpClient("AspersorClient", c =>
+            services.AddHttpClient("CasosSospechososClient", c =>
             {
                 c.BaseAddress = new Uri(currentConfiguration.ApiUrl);
             }).ConfigurePrimaryHttpMessageHandler(_ => new HttpClientHandler
@@ -149,7 +148,6 @@ namespace CasosSospechososMI
             services.AddTransient<LoadingViewModel>();
             services.AddTransient<CasosSospechososMI.UI.Login.ViewModels.LoginViewModel>();
             services.AddTransient<RegistrationViewModel>();
-            services.AddTransient<SelectorViewModel>();
             services.AddTransient<SampleRecordingViewModel>();
             services.AddTransient<MyDataViewModel>();
             services.AddTransient<RecordsViewModel>();
