@@ -60,6 +60,15 @@ namespace CasosSospechososMI.Services.Family
                 FechaCarga:record.Date,
                 Latitud: record.Latitude,
                 Longitud: record.Longitude,
+                resultado:record.Resultado,
+                dni: record.Dni,
+                apellido: record.Apellido,
+                nombre:record.Nombre,
+                cantidad:record.Cantidad,
+                domicilio: record.Domicilio,
+                id_localidad:record.LocalidadId,
+                telefono: record.Telefono,
+                email:record.Email,
                 Imagen:image, ct);
             return result;
            

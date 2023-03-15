@@ -102,7 +102,7 @@
                 </StackLayout>
                 
                 
-            <StackLayout  Grid.Row="10" x:Name="passRepInput" Spacing="0">
+            <StackLayout  Grid.Row="8" x:Name="passRepInput" Spacing="0">
                     <Grid ColumnSpacing="0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>

@@ -23,7 +23,7 @@ namespace CasosSospechososMI.Services.ApiDefinitions
         [Get("/api/procev/usuarios/{codigo}/getUserCodigoAsp")]
         Task<OperationResult<FamilyDataModel>> GetFamilyDataByCode(CancellationToken ct, string codigo);
 
-        [Get("/api/procev/aspersor/{tipo}/preguntas")]
+        [Get("/api/procev/casos/{tipo}/preguntas")]
         Task<OperationResult<List<FormModel>>> GetFormItems(CancellationToken ct, int tipo);
 
         [Multipart]
@@ -40,6 +40,15 @@ namespace CasosSospechososMI.Services.ApiDefinitions
                                                               [AliasAs("fecha_carga")] string FechaCarga,
                                                               [AliasAs("latitud")] string Latitud,
                                                               [AliasAs("longitud")] string Longitud,
+                                                              [AliasAs("resultado")] string resultado,
+                                                              [AliasAs("dni")] string dni,
+                                                              [AliasAs("apellido")] string apellido,
+                                                              [AliasAs("nombre")] string nombre,
+                                                              [AliasAs("cantidad")] string cantidad,
+                                                              [AliasAs("domicilio")] string domicilio,
+                                                              [AliasAs("id_localidad")] string id_localidad,
+                                                              [AliasAs("telefono")] string telefono,
+                                                              [AliasAs("email")] string email,
                                                               [AliasAs("imagen")] StreamPart Imagen,
                                                               CancellationToken cancellationToken)
                                                               ;

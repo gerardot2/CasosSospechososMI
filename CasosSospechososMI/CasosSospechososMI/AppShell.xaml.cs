@@ -3,7 +3,6 @@ using CasosSospechososMI.Models;
 using CasosSospechososMI.Services.Account.Interfaces;
 using CasosSospechososMI.UI.Base.ViewModels;
 using CasosSospechososMI.UI.Login.Views;
-using CasosSospechososMI.UI.Selector.Views;
 using CasosSospechososMI.UseCases.Account;
 using CasosSospechososMI.ViewModels;
 using CasosSospechososMI.Views;
@@ -34,6 +33,7 @@ namespace CasosSospechososMI
                 dataTab.IsEnabled = _connected;
                 recordsTab.IsEnabled = _connected;
                 whatsappIcon.IsEnabled = _connected;
+                protocolTab.IsEnabled = _connected;
             });
             MessagingCenter.Subscribe<GenericMessage,bool>(this, "HideNavBar", (obj,sender) =>
             {

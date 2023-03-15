@@ -8,7 +8,8 @@
              xmlns:controls="clr-namespace:CasosSospechososMI.Controls"
              Shell.PresentationMode="ModalAnimated"
              xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
-             Visual="Material">
+             Visual="Material"
+             BackgroundColor="White">
     <ContentPage.Content>
         <StackLayout Orientation="Vertical" Margin="25,15" VerticalOptions="Center">
             <Label Text="Acceso" FontAttributes="Bold" TextColor="Black" FontSize="22" VerticalTextAlignment="Center" HorizontalOptions="Center" Margin="0,25"/>
@@ -34,39 +35,7 @@
                         </controls:CustomEntry.Behaviors>
                     </controls:CustomEntry>
                 </StackLayout>
-                <StackLayout Grid.Row="2" x:Name="trapCodeRow" Spacing="0" VerticalOptions="Start">
-                    <Grid ColumnSpacing="0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="0.2*"/>
-                        </Grid.ColumnDefinitions>
-                        <StackLayout Grid.Column="0">
-                        <Label Grid.Column="0" Text="Código Aspersor" TextColor="Black" FontSize="14" VerticalTextAlignment="Start"/>
-                            <controls:CustomEntry x:Name="codeEntry" HorizontalOptions="FillAndExpand" Text="{Binding TrapCode}" Placeholder="Código" MaxLength="8">
-                                <controls:CustomEntry.Behaviors>
-                                    <behavior:TrapValidator />
-                                </controls:CustomEntry.Behaviors>
-                            </controls:CustomEntry>
-                        </StackLayout>
-                        <StackLayout Grid.Column="1" VerticalOptions="Center">
-                    <ff:CachedImage
-                            Source="photo_camera.png"
-                            Aspect="AspectFit"
-                            WidthRequest="25"
-                            HeightRequest="25"
-                            />
-                            <StackLayout.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
-                            </StackLayout.GestureRecognizers>
-                            
-                        </StackLayout>
-                        
-                    </Grid>
-
-
-                    <Label HorizontalOptions="FillAndExpand" Text="Ingresa el código que aparece en el sobre o presione sobre el icono de cámara y escanee el código QR" TextColor="{StaticResource Comment}" FontSize="12" VerticalTextAlignment="Start"
-                           />
-                </StackLayout>
+                
             </Grid>
             <StackLayout  Orientation="Vertical" VerticalOptions="Center" Spacing="30" Margin="10,30">
                 <pancakeview:PancakeView BackgroundColor="{StaticResource Primary}" CornerRadius="5" >

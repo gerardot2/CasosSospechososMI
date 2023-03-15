@@ -169,8 +169,8 @@ namespace CasosSospechososMI.UI.Home.ViewModels
             }
 
             IsBusy = false;
-            if (!actualUser.Supervisor && HomeData == null) await OpenResultWindow("Error de Datos", "Hubo un error obteniendo datos.\nSi el error persiste, cierre sesión y vuelva a ingresar.");
-            if (actualUser.Supervisor && HomeSupervisorData == null) await OpenResultWindow("Error de Datos", "Hubo un error obteniendo datos.\nSi el error persiste, cierre sesión y vuelva a ingresar.");
+            
+            if (HomeSupervisorData == null) await OpenResultWindow("Error de Datos", "Hubo un error obteniendo datos.\nSi el error persiste, cierre sesión y vuelva a ingresar.");
         }
 
         private async Task CheckCachedData()

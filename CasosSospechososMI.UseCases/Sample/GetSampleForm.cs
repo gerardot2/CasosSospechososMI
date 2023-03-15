@@ -27,7 +27,7 @@ namespace CasosSospechososMI.UseCases.Sample
             var actual = _getActual.Invoke();
             var user = new HomeQuery()
             {
-                TipoAplicacion = !actual.Supervisor ? "3" : "4"
+                TipoAplicacion = "5"
             };
 
             try

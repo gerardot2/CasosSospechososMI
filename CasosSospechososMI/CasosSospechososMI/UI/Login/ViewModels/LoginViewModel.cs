@@ -40,7 +40,7 @@ namespace CasosSospechososMI.UI.Login.ViewModels
             //    return;
             //}
             //------------------------------------------------------------
-            if ((UserName != null && UserName.Length == 8 && Password != null && Password.Length > 5 && Password.Length < 11) || (UserName != null && UserName.Length == 8 && TrapCode != null))
+            if ((UserName != null && UserName.Length == 8 && Password != null && Password.Length > 5 && Password.Length < 11) || (UserName != null && UserName.Length == 8 ))
             {
                 var result = await _accountService.RequestAuthTokenAsync(CancellationTokenSource.Token, UserName, Password);
 

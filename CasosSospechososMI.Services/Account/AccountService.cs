@@ -38,7 +38,7 @@ namespace CasosSospechososMI.Services.Account
             ISecureStorageService secureStorageService, IAuthenticatedService apiService)
         {
             _apiService = apiService;
-            _httpClient = httpClientFactory.CreateClient("AspersorClient");
+            _httpClient = httpClientFactory.CreateClient("CasosSospechososClient");
             _currentConfituration = currentConfiguration;
             _secureStorageService = secureStorageService;
         }
@@ -112,7 +112,7 @@ namespace CasosSospechososMI.Services.Account
             .Accept
             .Add(new MediaTypeWithQualityHeaderValue("application/x-www-form-urlencoded"));
 
-            var url = string.Format("{0}api/procev/casos/register", _httpClient.BaseAddress);
+            var url = string.Format("{0}api/procev/casos/register_agente", _httpClient.BaseAddress);
 
             var uri = new Uri(url);
 

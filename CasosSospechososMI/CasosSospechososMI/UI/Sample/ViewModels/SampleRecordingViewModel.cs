@@ -25,7 +25,8 @@ using Xamarin.Forms;
 using Xamarin.Forms.PancakeView;
 using System.Reactive.Linq;
 using CasosSospechososMI.Models;
-
+using CasosSospechososMI.UseCases.Common;
+using CasosSospechososMI.Domain.Account;
 
 namespace CasosSospechososMI.UI.Sample.ViewModels
 {
@@ -44,6 +45,7 @@ namespace CasosSospechososMI.UI.Sample.ViewModels
         PostVisitRecord _postVisitRecord;
         GetActualUser _getActualUser;
         IRoutingService _routingService;
+        GetCities _getCities;
         UpdateActualUser _updateActualUser;
 
         GetHomeUserData _getHomeData;
@@ -53,6 +55,7 @@ namespace CasosSospechososMI.UI.Sample.ViewModels
             , IRoutingService routingService
             , GetHomeUserData getHomeUserData,
             PostVisitRecord postVisitRecord,
+            GetCities getCities,
 GetActualUser getActualUser,
 UpdateActualUser updateActualUser) : base(routingService)
         {
@@ -68,6 +71,9 @@ UpdateActualUser updateActualUser) : base(routingService)
             _postVisitRecord = postVisitRecord;
             _getActualUser = getActualUser;
             _updateActualUser = updateActualUser;
+            _getCities = getCities;
+            SelectedCity = new City();
+            Cities = new ObservableCollection<City>();
         }
 
 
@@ -158,7 +164,24 @@ UpdateActualUser updateActualUser) : base(routingService)
                 SetProperty(ref _code, value);
             }
         }
-        
+        ObservableCollection<City> _cities;
+        public ObservableCollection<City> Cities
+        {
+            get => _cities;
+            set
+            {
+                SetProperty(ref _cities, value);
+            }
+        }
+        City _selectedCity;
+        public City SelectedCity
+        {
+            get => _selectedCity;
+            set
+            {
+                SetProperty(ref _selectedCity, value);
+            }
+        }
         #endregion 
         internal async void OnAppearing()
         {
@@ -166,7 +189,7 @@ UpdateActualUser updateActualUser) : base(routingService)
             var superv = new Domain.Account.User();
 
             await CheckIfAvailable(cameraOpened,IsSupervisor);
-
+            await SearchCities();
             if (!IsConnected && FormItems.Count() == 0 )
             {
                 await CheckAndLoadCached();
@@ -178,10 +201,23 @@ UpdateActualUser updateActualUser) : base(routingService)
                 await SearchFormItems();
             }
             
-            if (superv != null && superv.Supervisor)
+        }
+
+        public async Task SearchCities()
+        {
+            if (IsBusy) return;
+            IsBusy = true;
+            var result = await _getCities.Invoke(CancellationTokenSource.Token);
+            if (result != null
+                && result.Data != null)
             {
-                TitleHeader = "Registrar Visita";
+                Cities = new ObservableCollection<City>(result.Data);
             }
+            else
+            {
+                Cities = new ObservableCollection<City>();
+            }
+            IsBusy = false;
         }
 
         private async Task CheckAndLoadCached()
@@ -264,23 +300,17 @@ UpdateActualUser updateActualUser) : base(routingService)
                 if (FormRecord.FormFulfilled)
                 {
                     IsBusy = true;
+                    FormRecord.LocalidadId = (SelectedCity != null) ? SelectedCity.Id.ToString() : "";
                     if (!IsConnected)
                     {
                         try
                         {
                             var update = _getActualUser.Invoke();
-                            if (IsSupervisor) 
-                            {
-                                var cachedObject = (FormRecord, ImagenToCache, Code);
-                                await BlobCache.LocalMachine.InsertObject<(FormRecordModel, byte[], string)>("sampleModel", cachedObject,null);
-                                if (update != null) { update.HasCachedRecord = true; _updateActualUser.Invoke(update); };
-                            }
-                            else
-                            {
-                                var cachedObject = (FormRecord, ImagenToCache);
-                                await BlobCache.LocalMachine.InsertObject<(FormRecordModel, byte[])>("sampleModel", cachedObject,null);
-                                if (update != null) { update.HasCachedRecord = true; _updateActualUser.Invoke(update); };
-                            }
+                                                        
+                            var cachedObject = (FormRecord, ImagenToCache);
+                            await BlobCache.LocalMachine.InsertObject<(FormRecordModel, byte[])>("sampleModel", cachedObject,null);
+                            if (update != null) { update.HasCachedRecord = true; _updateActualUser.Invoke(update); };
+                            
 
                             await ActionsPostSubmit(true);
                         }
@@ -402,12 +432,6 @@ UpdateActualUser updateActualUser) : base(routingService)
             try
             {
 
-                //using (MemoryStream ms = new MemoryStream())
-                //{
-                //    var stream = File.OpenRead(PhotoPath);
-                //    stream.CopyTo(ms);
-                //    FormRecord.Image = new StreamPart(ms, PhotoPath);
-                //}
                 var stream = await ImageService.Instance.LoadFile(PhotoPath)
                             .DownSample(width: 1024)
                             .AsPNGStreamAsync();
@@ -466,6 +490,7 @@ UpdateActualUser updateActualUser) : base(routingService)
 
                 }
             }
+            BuildResultQuestion();
         }
 
         private void DeleteAllImages() {
@@ -615,8 +640,9 @@ UpdateActualUser updateActualUser) : base(routingService)
                 ColumnSpacing = 0,
                 RowDefinitions =
                 {
-                    new RowDefinition(),
                     new RowDefinition()
+                    //,
+                    //new RowDefinition()
                 },
                 ColumnDefinitions =
                 {
@@ -632,6 +658,8 @@ UpdateActualUser updateActualUser) : base(routingService)
             grid.Children.Add(new Label
             {
                 Text = item.Descripcion,
+                FontSize = 16,
+                Margin = new Thickness(0, 10),
                 VerticalTextAlignment = TextAlignment.Center,
                 HorizontalOptions = LayoutOptions.Center,
                 VerticalOptions = LayoutOptions.Center
@@ -685,12 +713,14 @@ UpdateActualUser updateActualUser) : base(routingService)
             stack.Children.Add(new Label
             {
                 Text = "Si",
+                FontSize = 16,
                 VerticalTextAlignment = TextAlignment.Center
             });
             stack.Children.Add(checkYes);
             stack.Children.Add(new Label
             {
                 Text = "No",
+                FontSize = 16,
                 VerticalTextAlignment = TextAlignment.Center
             });
             stack.Children.Add(checkNo);
@@ -699,6 +729,114 @@ UpdateActualUser updateActualUser) : base(routingService)
             BoxView boxView = new BoxView
             {
                 Margin = 0,
+                HorizontalOptions = LayoutOptions.FillAndExpand,
+                Color = Color.Gray,
+                HeightRequest = 1
+            };
+            Grid.SetRow(boxView, 1);
+            General.Children.Add(grid);
+            General.Children.Add(boxView);
+
+            
+        }
+        private void BuildResultQuestion()
+        {
+            Grid grid = new Grid
+            {
+                RowSpacing = 0,
+                ColumnSpacing = 0,
+                RowDefinitions =
+                {
+                    new RowDefinition()
+                    //,
+                    //new RowDefinition()
+                },
+                ColumnDefinitions =
+                {
+                    new ColumnDefinition(),
+                    new ColumnDefinition()
+                }
+            };
+            grid.Children.Add(new BoxView
+            {
+                VerticalOptions = LayoutOptions.Center,
+                Color = Color.White
+            });
+            grid.Children.Add(new Label
+            {
+                Text = "Resultado/n Test Rápido",
+                FontSize = 16,
+                Margin = new Thickness(0, 10),
+                VerticalTextAlignment = TextAlignment.Center,
+                HorizontalOptions = LayoutOptions.Center,
+                VerticalOptions = LayoutOptions.Center
+            });
+            grid.Children.Add(new BoxView
+            {
+                Color = Color.White
+            }, 1, 0);
+
+            StackLayout stack = new StackLayout
+            {
+                Orientation = StackOrientation.Horizontal,
+                HorizontalOptions = LayoutOptions.EndAndExpand,
+                VerticalOptions = LayoutOptions.Center,
+            };
+            CheckBox checkYes = new CheckBox();
+            checkYes.Color = (Color)Application.Current.Resources["Primary"];
+            checkYes.CheckedChanged += (sender, e) =>
+            {
+                // Perform required operation after examining e.Value
+
+                var list = stack.Children;
+                CheckBox checkNo = (CheckBox)list[3];
+
+
+                //var item0 = item.NumeroPregunta;
+                if (e.Value.ToString() == "True") { checkNo.IsChecked = false;
+                    FormRecord.Resultado = "Positivo";
+                }
+                else
+                {
+                    FormRecord.Resultado = "Negativo";
+                };
+            };
+            CheckBox checkNo = new CheckBox();
+            checkNo.CheckedChanged += (sender, e) =>
+            {
+                // Perform required operation after examining e.Value
+                var list = stack.Children;
+                CheckBox checkYes = (CheckBox)list[1];
+                //var item0 = item.NumeroPregunta;
+                if (e.Value.ToString() == "True")
+                {
+                    checkYes.IsChecked = false;
+                    FormRecord.Resultado = "Negativo";
+                }
+                else
+                {
+                    FormRecord.Resultado = "";
+                };
+            };
+            checkNo.Color = (Color)Application.Current.Resources["Primary"];
+            stack.Children.Add(new Label
+            {
+                Text = "Positivo",
+                FontSize = 16,
+                VerticalTextAlignment = TextAlignment.Center
+            });
+            stack.Children.Add(checkYes);
+            stack.Children.Add(new Label
+            {
+                Text = "Negativo",
+                FontSize = 16,
+                VerticalTextAlignment = TextAlignment.Center
+            });
+            stack.Children.Add(checkNo);
+            
+            grid.Children.Add(stack,1,0);
+            BoxView boxView = new BoxView
+            {
                 HorizontalOptions = LayoutOptions.FillAndExpand,
                 Color = Color.Gray,
                 HeightRequest = 1
