@@ -41,11 +41,13 @@
                 </StackLayout>
                 <StackLayout Grid.Row="1">
                     <Label Text="Apellido" TextColor="Black" FontSize="16" VerticalTextAlignment="Start"/>
-                    <controls:CustomEntry x:Name="apellidoField" HorizontalOptions="FillAndExpand" Placeholder="Ingrese apellido" Text="{Binding FormRecord.Apellido}"/>
+                    <controls:CustomEntry x:Name="apellidoField" HorizontalOptions="FillAndExpand" Placeholder="Ingrese apellido" Text="{Binding FormRecord.Apellido}"
+                                          PlaceholderColor="Gray"/>
                 </StackLayout>
                 <StackLayout Grid.Row="2">
                     <Label Text="Nombre" TextColor="Black" FontSize="16" VerticalTextAlignment="Start"/>
-                    <controls:CustomEntry x:Name="nameField" HorizontalOptions="FillAndExpand" Placeholder="Ingrese nombre/s" Text="{Binding FormRecord.Nombre}"/>
+                    <controls:CustomEntry x:Name="nameField" HorizontalOptions="FillAndExpand" Placeholder="Ingrese nombre/s" Text="{Binding FormRecord.Nombre}"
+                                          PlaceholderColor="Gray"/>
                 </StackLayout>
                 <StackLayout Grid.Row="3">
                     <Label Text="Localidad" TextColor="Black" FontSize="16" VerticalTextAlignment="Start"/>
@@ -57,12 +59,14 @@
                 </StackLayout>
                 <StackLayout Grid.Row="4" x:Name="addressInput" Spacing="0">
                     <Label Text="Domicilio" TextColor="Black" FontSize="16" VerticalTextAlignment="Start"/>
-                    <controls:CustomEntry x:Name="domicilioField" HorizontalOptions="FillAndExpand" Placeholder="Ingrese domicilio" Text="{Binding FormRecord.Domicilio}"/>
+                    <controls:CustomEntry x:Name="domicilioField" HorizontalOptions="FillAndExpand" Placeholder="Ingrese domicilio" Text="{Binding FormRecord.Domicilio}"
+                                          PlaceholderColor="Gray"/>
                 </StackLayout>
 
                 <StackLayout Grid.Row="5">
                     <Label Text="Telefono" TextColor="Black" FontSize="16" VerticalTextAlignment="Start"/>
-                    <controls:CustomEntry x:Name="telefonoField" HorizontalOptions="FillAndExpand" Keyboard="Telephone" Placeholder="Ingrese telefono de contacto" Text="{Binding FormRecord.Telefono}">
+                    <controls:CustomEntry x:Name="telefonoField" HorizontalOptions="FillAndExpand" Keyboard="Telephone" Placeholder="Ingrese telefono de contacto" 
+                                          Text="{Binding FormRecord.Telefono}" PlaceholderColor="Gray">
                         <controls:CustomEntry.Behaviors>
                             <behavior:NumericValidator />
                         </controls:CustomEntry.Behaviors>
@@ -70,7 +74,8 @@
                 </StackLayout>
                 <StackLayout Grid.Row="6">
                     <Label Text="Correo electronico (opcional)" TextColor="Black" FontSize="16" VerticalTextAlignment="Start"/>
-                    <controls:CustomEntry x:Name="correoField" HorizontalOptions="FillAndExpand" Placeholder="Ingrese un correo electronico" Keyboard="Email" Text="{Binding FormRecord.Email}">
+                    <controls:CustomEntry x:Name="correoField" HorizontalOptions="FillAndExpand" Placeholder="Ingrese un correo electronico" Keyboard="Email" Text="{Binding FormRecord.Email}"
+                                          PlaceholderColor="Gray">
                         <controls:CustomEntry.Behaviors>
                             <behavior:EmailValidator />
                         </controls:CustomEntry.Behaviors>
@@ -102,7 +107,6 @@
                                 <ff:CachedImage Source="{Binding PhotoPath}" IsVisible="{Binding HasPhoto}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Aspect="AspectFill"/>
                             </StackLayout>
                         </pancakeview:PancakeView>
-                        
                     </pancakeview:PancakeView>
                 </Grid>
                 <BoxView HeightRequest="1" HorizontalOptions="FillAndExpand" Color="Gray" Margin="0"/>

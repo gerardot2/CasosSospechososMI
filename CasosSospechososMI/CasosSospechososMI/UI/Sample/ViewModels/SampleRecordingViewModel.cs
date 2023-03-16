@@ -323,9 +323,7 @@ UpdateActualUser updateActualUser) : base(routingService)
                     else
                     {
 
-                        var response = (_getActualUser.Invoke().Supervisor && !string.IsNullOrEmpty(Code))  ?
-                            await _postVisitRecord.Invoke(CancellationTokenSource.Token, FormRecord, Imagen,Code) :
-                            await _postSampleRecord.Invoke(CancellationTokenSource.Token, FormRecord, Imagen);
+                        var response = await _postSampleRecord.Invoke(CancellationTokenSource.Token, FormRecord, Imagen);
                         if (response != null && int.Parse(response.Codigo) == 0)
                         {
                             // Registro exitoso
@@ -764,7 +762,7 @@ UpdateActualUser updateActualUser) : base(routingService)
             });
             grid.Children.Add(new Label
             {
-                Text = "Resultado/n Test Rápido",
+                Text = "Resultado Test Rápido",
                 FontSize = 16,
                 Margin = new Thickness(0, 10),
                 VerticalTextAlignment = TextAlignment.Center,
@@ -775,21 +773,42 @@ UpdateActualUser updateActualUser) : base(routingService)
             {
                 Color = Color.White
             }, 1, 0);
-
+            Grid grid1 = new Grid
+            {
+                RowSpacing = 0,
+                ColumnSpacing = 0,
+                RowDefinitions =
+                {
+                    new RowDefinition()
+                },
+                ColumnDefinitions =
+                {
+                    new ColumnDefinition(),
+                    new ColumnDefinition()
+                }
+            };
             StackLayout stack = new StackLayout
             {
-                Orientation = StackOrientation.Horizontal,
-                HorizontalOptions = LayoutOptions.EndAndExpand,
+                Orientation = StackOrientation.Vertical,
+                HorizontalOptions = LayoutOptions.CenterAndExpand,
+                VerticalOptions = LayoutOptions.Center,
+            };
+            
+            StackLayout stack1 = new StackLayout
+            {
+                Orientation = StackOrientation.Vertical,
+                HorizontalOptions = LayoutOptions.CenterAndExpand,
                 VerticalOptions = LayoutOptions.Center,
             };
             CheckBox checkYes = new CheckBox();
+            checkYes.HorizontalOptions = LayoutOptions.Center;
             checkYes.Color = (Color)Application.Current.Resources["Primary"];
             checkYes.CheckedChanged += (sender, e) =>
             {
                 // Perform required operation after examining e.Value
 
-                var list = stack.Children;
-                CheckBox checkNo = (CheckBox)list[3];
+                var list = stack1.Children;
+                CheckBox checkNo = (CheckBox)list[1];
 
 
                 //var item0 = item.NumeroPregunta;
@@ -798,10 +817,11 @@ UpdateActualUser updateActualUser) : base(routingService)
                 }
                 else
                 {
-                    FormRecord.Resultado = "Negativo";
+                    FormRecord.Resultado = "";
                 };
             };
             CheckBox checkNo = new CheckBox();
+            checkNo.HorizontalOptions = LayoutOptions.Center;
             checkNo.CheckedChanged += (sender, e) =>
             {
                 // Perform required operation after examining e.Value
@@ -819,22 +839,28 @@ UpdateActualUser updateActualUser) : base(routingService)
                 };
             };
             checkNo.Color = (Color)Application.Current.Resources["Primary"];
+            
             stack.Children.Add(new Label
             {
                 Text = "Positivo",
                 FontSize = 16,
-                VerticalTextAlignment = TextAlignment.Center
+                //VerticalTextAlignment = TextAlignment.Center
             });
+            
             stack.Children.Add(checkYes);
-            stack.Children.Add(new Label
+            
+            stack1.Children.Add(new Label
             {
                 Text = "Negativo",
                 FontSize = 16,
-                VerticalTextAlignment = TextAlignment.Center
+                //VerticalTextAlignment = TextAlignment.Center
             });
-            stack.Children.Add(checkNo);
             
-            grid.Children.Add(stack,1,0);
+            stack1.Children.Add(checkNo);
+
+            grid1.Children.Add(stack,0,0);
+            grid1.Children.Add(stack1,1,0);
+            grid.Children.Add(grid1,1,0);
             BoxView boxView = new BoxView
             {
                 HorizontalOptions = LayoutOptions.FillAndExpand,
