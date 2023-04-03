@@ -126,6 +126,16 @@ UpdateActualUser updateActualUser) : base(routingService)
             set
             {
                 SetProperty(ref _photoPath, value);
+                OnPropertyChanged("PhotoPath");
+            }
+        }
+        bool _isImageLoading = false;
+        public bool IsImageLoading
+        {
+            get => _isImageLoading;
+            set
+            {
+                SetProperty(ref _isImageLoading, !string.IsNullOrEmpty(PhotoPath));
             }
         }
         string _titleHeader = "Registrar Muestra";
@@ -179,7 +189,10 @@ UpdateActualUser updateActualUser) : base(routingService)
             get => _selectedCity;
             set
             {
-                SetProperty(ref _selectedCity, value);
+                if (value != null)
+                {
+                    SetProperty(ref _selectedCity, value);
+                }
             }
         }
         #endregion 
@@ -188,8 +201,12 @@ UpdateActualUser updateActualUser) : base(routingService)
             CancellationTokenSource = new CancellationTokenSource();
             var superv = new Domain.Account.User();
 
-            await CheckIfAvailable(cameraOpened,IsSupervisor);
-            await SearchCities();
+            await CheckIfAvailable(cameraOpened, IsSupervisor);
+            if (!Cities.Any())
+            {
+                
+                await SearchCities();
+            }
             if (!IsConnected && FormItems.Count() == 0 )
             {
                 await CheckAndLoadCached();
@@ -266,7 +283,7 @@ UpdateActualUser updateActualUser) : base(routingService)
             flag = true;
             }
                 var totalDias = result?.DiasParaProximaMuestra > 1 ? $"Faltan {result.DiasParaProximaMuestra} dias" : "Falta 1 dia";
-            if (result == null || result.DiasParaProximaMuestra > 0 && !flag && !superv)
+            if (result == null || result.DiasParaProximaMuestra > 0 && !flag && !superv)        
             {
                     
                 await OpenResultWindow("Registro de Muestra", $"Todavía no es necesario que registre una nueva muestra.\n{totalDias}");

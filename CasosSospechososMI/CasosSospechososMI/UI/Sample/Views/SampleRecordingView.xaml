@@ -51,10 +51,13 @@
                 </StackLayout>
                 <StackLayout Grid.Row="3">
                     <Label Text="Localidad" TextColor="Black" FontSize="16" VerticalTextAlignment="Start"/>
-                    <controls:CustomPicker x:Name="localidadPicker" HorizontalOptions="FillAndExpand" SelectedIndex="0" 
-                            ItemsSource="{Binding Cities, Source={RelativeSource AncestorType={x:Type viewModels:SampleRecordingViewModel}}}" Title="Seleccione localidad" 
+                    <controls:CustomPicker x:Name="localidadPicker" ItemsSource="{Binding Cities, Source={RelativeSource AncestorType={x:Type viewModels:SampleRecordingViewModel}}}" 
+                            Title="Seleccione localidad" 
                             TitleColor="{StaticResource Comment}" ItemDisplayBinding="{Binding Descripcion}"
-                            SelectedItem="{Binding SelectedCity}"/>
+                            SelectedItem="{Binding SelectedCity, Mode=TwoWay}"
+                            HorizontalOptions="FillAndExpand" 
+                                           />
+
                     <BoxView Margin="0,-5,0,5" HeightRequest="1" Color="{StaticResource Primary}" HorizontalOptions="FillAndExpand"/>
                 </StackLayout>
                 <StackLayout Grid.Row="4" x:Name="addressInput" Spacing="0">
@@ -104,7 +107,8 @@
                                              VerticalOptions="FillAndExpand" CornerRadius="4" Border="{pancakeview:BorderMarkup Color=White, Thickness='3'}">
                             <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
                             <Label Text="Imagen" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"  IsVisible="{Binding HasPhoto, Mode=TwoWay, Converter={StaticResource inverterConverter}}"/>
-                                <ff:CachedImage Source="{Binding PhotoPath}" IsVisible="{Binding HasPhoto}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Aspect="AspectFill"/>
+                                <ActivityIndicator IsVisible="{Binding IsImageLoading}" IsRunning="{Binding IsImageLoading}" Color="{StaticResource Primary}" />
+                            <ff:CachedImage Source="{Binding PhotoPath}" IsVisible="{Binding HasPhoto}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Aspect="AspectFill"/>
                             </StackLayout>
                         </pancakeview:PancakeView>
                     </pancakeview:PancakeView>

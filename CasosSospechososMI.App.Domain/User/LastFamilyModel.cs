@@ -7,7 +7,7 @@ namespace CasosSospechososMI.Domain.User
 {
     public class HomeDataSupervisorModel : HomeDataModel
     {
-        [JsonPropertyName("ultima_familia")]
+        [JsonPropertyName("ultima_persona")]
         public LastFamilyModel UltimaFamilia { get; set; }
 
         [JsonPropertyName("cantidad_dia")]
@@ -18,7 +18,7 @@ namespace CasosSospechososMI.Domain.User
     }
     public class LastFamilyModel
     {
-        [JsonPropertyName("codigo")]
+        [JsonPropertyName("dni")]
         public string Codigo { get; set; }
         [JsonPropertyName("fecha_hora")]
         public string FechaHora { get; set; }

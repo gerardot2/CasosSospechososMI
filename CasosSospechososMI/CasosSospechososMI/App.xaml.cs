@@ -22,6 +22,7 @@ namespace CasosSospechososMI
         public static double DeviceDisplayHeight { get; set; }
         public static double DeviceDisplayWidth { get; set; }
         public static string WhatsappNumber { get; set; }
+        public static string ProtocolFileUrl { get; set; }
         public static User ActualUser { get;
             set; }
         public static HomeDataModel HomeUserData { get; set; }

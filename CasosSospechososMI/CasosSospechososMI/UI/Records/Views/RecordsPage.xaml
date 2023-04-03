@@ -14,7 +14,7 @@
             <StackLayout HorizontalOptions="Center" VerticalOptions="Center" Margin="20">
                 <pancakeview:PancakeView BackgroundColor="{StaticResource Primary}" CornerRadius="5" IsEnabled="True" VerticalOptions="Center">
 
-                    <Label Text="Registrar Muestra" TextColor="White" FontSize="18" FontAttributes="Bold" HorizontalTextAlignment="Center" Margin="20,5"/>
+                    <Label Text="Registrar Visita" TextColor="White" FontSize="18" FontAttributes="Bold" HorizontalTextAlignment="Center" Margin="20,5"/>
                     <pancakeview:PancakeView.Shadow>
                         <pancakeview:DropShadow Color="#000000" Offset="10,10" />
                     </pancakeview:PancakeView.Shadow>

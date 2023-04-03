@@ -26,15 +26,19 @@ namespace CasosSospechososMI.Behavior
         {
             var entry = (Entry)sender;
             string email = entry.Text;
-            Regex regex = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
-            Match match = regex.Match(email);
-
-            if (match.Success)
+            if (!string.IsNullOrEmpty(email))
             {
-                ((Entry)sender).TextColor = Color.Black;
+
+                Regex regex = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
+                Match match = regex.Match(email);
+                if (match.Success)
+                {
+                    ((Entry)sender).TextColor = Color.Black;
+                }
+                else
+                    ((Entry)sender).TextColor = Color.Red;
             }
-            else
-                ((Entry)sender).TextColor = Color.Red;
+
         }
     }
 }

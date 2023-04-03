@@ -16,7 +16,6 @@
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
     <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
     <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
-    <AndroidUseLatestPlatformSdk>false</AndroidUseLatestPlatformSdk>
     <TargetFrameworkVersion>v11.0</TargetFrameworkVersion>
     <AndroidEnableSGenConcurrent>true</AndroidEnableSGenConcurrent>
     <AndroidUseAapt2>true</AndroidUseAapt2>
@@ -118,19 +117,23 @@
     <AndroidResource Include="Resources\drawable\xamarin_logo.png" />
     <AndroidResource Include="Resources\drawable\icon_about.png" />
     <AndroidResource Include="Resources\drawable\icon_feed.png" />
+    <AndroidResource Include="Resources\drawable\test.png">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\CasosSospechososMI.App.Domain\CasosSospechososMI.Domain.csproj">
       <Project>{AE73F9F4-6295-4844-8FFE-E971FFFF4708}</Project>
-      <Name>AspersoresMI.Domain</Name>
+      <Name>CasosSospechososMI.Domain</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\CasosSospechososMI.Services\CasosSospechososMI.Services.csproj">
       <Project>{9713AE8E-6478-4287-966B-275B79344F90}</Project>
-      <Name>AspersoresMI.Services</Name>
+      <Name>CasosSospechososMI.Services</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\CasosSospechososMI.UseCases\CasosSospechososMI.UseCases.csproj">
       <Project>{5537C071-F4F2-4C3C-AB77-416EB070D5FC}</Project>
-      <Name>AspersoresMI.UseCases</Name>
+      <Name>CasosSospechososMI.UseCases</Name>
     </ProjectReference>
     <ProjectReference Include="..\CasosSospechososMI\CasosSospechososMI.csproj">
       <Project>{D545AA8E-BB38-4AA5-A7B0-441F21C8F9AB}</Project>

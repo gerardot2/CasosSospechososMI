@@ -29,6 +29,7 @@ namespace CasosSospechososMI.UI.Sample.Views
         }
         protected override void OnDisappearing()
         {
+            base.OnDisappearing();
             //------------ Controlar todo el form cuando se envia formulario y sale de tab
             //new SampleRecordingView();
             if (_viewModel.completed || !_viewModel.popupOpened)
@@ -45,7 +46,6 @@ namespace CasosSospechososMI.UI.Sample.Views
                     Orientation = StackOrientation.Vertical
                 };
             }
-            base.OnDisappearing();
         }
         void OnCheckBoxCheckedChanged(object sender, CheckedChangedEventArgs e)
         {
@@ -59,6 +59,7 @@ namespace CasosSospechososMI.UI.Sample.Views
             //}
             return base.OnBackButtonPressed();
         }
+
         
 
     }

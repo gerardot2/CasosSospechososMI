@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <Shell xmlns="http://xamarin.com/schemas/2014/forms" 
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
        xmlns:local="clr-namespace:CasosSospechososMI.UI.MyData.Views"
@@ -104,18 +104,13 @@
         <Tab x:Name="dataTab" Title="Mis Datos"  Icon="my_data.png">
             <ShellContent ContentTemplate="{DataTemplate local:MyDataPage}" />
      </Tab>
-        <Tab x:Name="protocolTab" Title="Ver Protocolo Sanitario" Icon="my_data.png">
-            <ShellContent ContentTemplate="{DataTemplate local:MyDataPage}" />
-     </Tab>
-        
-
-
-
-
+       
 
     </FlyoutItem>
     <!-- When the Flyout is visible this will be a menu item you can tie a click behavior to  -->
     
+    <MenuItem Text="Ver Protocolo Sanitario" Clicked="OnProtocolClicked" IconImageSource="test.png" x:Name="protocolTab">
+    </MenuItem>
     <MenuItem Text="Ayuda" Clicked="OnWhatsappClicked" IconImageSource="whatsapp.png" x:Name="whatsappIcon">
     </MenuItem>
     <MenuItem Text="Cerrar sesión" StyleClass="MenuItemLayoutStyle" Clicked="OnMenuItemClicked">

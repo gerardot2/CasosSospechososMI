@@ -76,7 +76,7 @@ namespace CasosSospechososMI.Services.Family
 
         public async Task<OperationResult<List<SampleModel>>> GetMySamplesAsync(CancellationToken ct)
         {
-            return await _apiService.GetRestService<IFamilyApiDefinition>().GetMySamples(ct);
+            return await _apiService.GetRestService<IFamilyApiDefinition>().GetMyLoadedSamples(ct);
         }
         public async Task<OperationResult<List<SampleModel>>> GetVisitsByIdAsync(CancellationToken ct, string id)
         {

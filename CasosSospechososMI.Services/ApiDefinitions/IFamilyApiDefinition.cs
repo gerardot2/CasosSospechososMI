@@ -53,8 +53,10 @@ namespace CasosSospechososMI.Services.ApiDefinitions
                                                               CancellationToken cancellationToken)
                                                               ;
         
-        [Get("/api/procev/aspersor/misMuestras")]
+        [Get("/api/procev/casos/getCasosSospechosos")]
         Task<OperationResult<List<SampleModel>>> GetMySamples(CancellationToken cancellationToken);
+        [Get("/api/procev/casos/getCasosSospechososCargados")]
+        Task<OperationResult<List<SampleModel>>> GetMyLoadedSamples(CancellationToken cancellationToken);
         [Get("/api/procev/aspersor/{id}/muestrasCodigoAspersor")]
         Task<OperationResult<List<SampleModel>>> GetVisitsById(CancellationToken cancellationToken,string id);
         [Post("/api/procev/usuarios/actualizarDatosUsuario")]

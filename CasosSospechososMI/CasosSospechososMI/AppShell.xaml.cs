@@ -107,6 +107,14 @@ namespace CasosSospechososMI
                 
             }
         }
+        private void OnProtocolClicked(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(App.ProtocolFileUrl))
+            {
+                Browser.OpenAsync($"{App.ProtocolFileUrl}");
+
+            }
+        }
         protected override bool OnBackButtonPressed()
         {
             if (Shell.Current.Navigation.NavigationStack.Count == 1)
