@@ -45,6 +45,7 @@ namespace CasosSospechososMI.Services.ApiDefinitions
                                                               [AliasAs("apellido")] string apellido,
                                                               [AliasAs("nombre")] string nombre,
                                                               [AliasAs("cantidad")] string cantidad,
+                                                              [AliasAs("barrio")] string barrio,
                                                               [AliasAs("domicilio")] string domicilio,
                                                               [AliasAs("id_localidad")] string id_localidad,
                                                               [AliasAs("telefono")] string telefono,

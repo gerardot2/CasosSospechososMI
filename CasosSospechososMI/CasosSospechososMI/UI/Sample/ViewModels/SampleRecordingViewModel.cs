@@ -126,7 +126,8 @@ UpdateActualUser updateActualUser) : base(routingService)
             set
             {
                 SetProperty(ref _photoPath, value);
-                OnPropertyChanged("PhotoPath");
+                OnPropertyChanged(nameof(PhotoPath));
+                OnPropertyChanged(nameof(IsImageLoading));
             }
         }
         bool _isImageLoading = false;
@@ -135,7 +136,7 @@ UpdateActualUser updateActualUser) : base(routingService)
             get => _isImageLoading;
             set
             {
-                SetProperty(ref _isImageLoading, !string.IsNullOrEmpty(PhotoPath));
+                SetProperty(ref _isImageLoading, value);
             }
         }
         string _titleHeader = "Registrar Muestra";
@@ -432,6 +433,11 @@ UpdateActualUser updateActualUser) : base(routingService)
             {
                 return;
             }
+            else
+            {
+                IsImageLoading = true;
+            }
+            await Task.Delay(1500);
             // save the file into local storage
 
             DeleteAllImages();
@@ -442,13 +448,13 @@ UpdateActualUser updateActualUser) : base(routingService)
                 await stream.CopyToAsync(newStream);
 
             PhotoPath = newFile;
-            
+            //IsImageLoading = false;
             HasPhoto = !string.IsNullOrEmpty(PhotoPath);
             try
             {
 
                 var stream = await ImageService.Instance.LoadFile(PhotoPath)
-                            .DownSample(width: 1024)
+                            .DownSample(width: 512)
                             .AsPNGStreamAsync();
                 FormRecord.Image = PhotoPath;
                 ImagenToCache = !IsConnected ? stream.ToByteArray() : null;

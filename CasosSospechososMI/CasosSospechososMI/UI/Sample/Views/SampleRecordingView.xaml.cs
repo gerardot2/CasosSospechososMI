@@ -60,7 +60,11 @@ namespace CasosSospechososMI.UI.Sample.Views
             return base.OnBackButtonPressed();
         }
 
-        
+        void CachedImage_Finish(System.Object sender, FFImageLoading.Forms.CachedImageEvents.FinishEventArgs e)
+        {
+            _viewModel.IsImageLoading = false;
+        }
+
 
     }
 }

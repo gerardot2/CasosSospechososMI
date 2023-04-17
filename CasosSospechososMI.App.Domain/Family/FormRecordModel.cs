@@ -42,6 +42,8 @@ namespace CasosSospechososMI.Domain.Family
         public string Nombre { get; set; }
         [AliasAs("cantidad")]
         public string Cantidad { get; set; }
+        [AliasAs("barrio")]
+        public string Barrio { get; set; }
         [AliasAs("domicilio")]
         public string Domicilio { get; set; }
         [AliasAs("id_localidad")]
@@ -68,6 +70,7 @@ namespace CasosSospechososMI.Domain.Family
                       || !string.IsNullOrEmpty(Email)
                       || !string.IsNullOrEmpty(Cantidad)
                       || !string.IsNullOrEmpty(Domicilio)
+                      || !string.IsNullOrEmpty(Barrio)
                       || Image != null
                       ;
             }
@@ -81,6 +84,7 @@ namespace CasosSospechososMI.Domain.Family
                       && !string.IsNullOrEmpty(Resultado) 
                       && !string.IsNullOrEmpty(Dni)
                       && Image != null
+                      && !string.IsNullOrEmpty(Cantidad)
                       && !string.IsNullOrEmpty(Latitude)
                       && !string.IsNullOrEmpty(Longitude)
                       ;

@@ -1,4 +1,5 @@
 ﻿using Acr.UserDialogs;
+using Android.Content.Res;
 using CasosSospechososMI.Models;
 using CasosSospechososMI.Services.Account.Interfaces;
 using CasosSospechososMI.UI.Base.ViewModels;
@@ -14,6 +15,7 @@ using System.Threading.Tasks;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.OpenWhatsApp;
+using Xamarin.Forms.PlatformConfiguration;
 
 namespace CasosSospechososMI
 {
@@ -107,13 +109,18 @@ namespace CasosSospechososMI
                 
             }
         }
-        private void OnProtocolClicked(object sender, EventArgs e)
+        private async void OnProtocolClicked(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(App.ProtocolFileUrl))
-            {
-                Browser.OpenAsync($"{App.ProtocolFileUrl}");
+            
+            //var filePath = "android_asset/protocol.pdf";
 
-            }
+            //if (filePath != null)
+            //{
+            //    await Launcher.OpenAsync(new OpenFileRequest
+            //    {
+            //        File = new ReadOnlyFile(filePath)
+            //    });
+            //}
         }
         protected override bool OnBackButtonPressed()
         {

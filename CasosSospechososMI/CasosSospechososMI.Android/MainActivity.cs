@@ -14,6 +14,8 @@ using CasosSospechososMI.Models;
 using CasosSospechososMI.UseCases.Account;
 using System.Threading;
 using FFImageLoading.Forms.Platform;
+using Android.Content.Res;
+using System.IO;
 
 namespace CasosSospechososMI.Droid
 {
@@ -37,6 +39,13 @@ namespace CasosSospechososMI.Droid
             //scanner = new MobileBarcodeScanner();
             AppCompatDelegate.DefaultNightMode = AppCompatDelegate.ModeNightNo;
             //LoadApplication(new App());
+
+            AssetManager assets = this.Assets;
+            string content;
+            using (StreamReader sr = new StreamReader(assets.Open("protocol.pdf")))
+            {
+                content = sr.ReadToEnd();
+            }
             //Inicia servicios con Startup
             UserDialogs.Init(this);
             MessagingCenter.Subscribe<GenericMessage>(this, "Shutdown", OnShutdown);

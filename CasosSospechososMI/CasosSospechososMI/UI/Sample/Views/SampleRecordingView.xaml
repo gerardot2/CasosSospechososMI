@@ -10,7 +10,8 @@
              xmlns:pancakeview="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
              xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              xmlns:viewModels="clr-namespace:CasosSospechososMI.UI.Sample.ViewModels"
-             x:Name="BrowseFormItemsPage">
+             x:Name="BrowseFormItemsPage"
+             x:DataType="viewModels:SampleRecordingViewModel">
     <ContentPage.Resources>
         <ResourceDictionary>
             <converters:InverterConverter x:Key="inverterConverter" />
@@ -30,10 +31,11 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <StackLayout Grid.Row="0" Spacing="0">
                     <Label  Text="DNI" TextColor="Black" FontSize="16" VerticalTextAlignment="Start"/>
-                    <controls:CustomEntry x:Name="dniField" Placeholder="Ingrese su nro de DNI" Keyboard="Numeric" Text="{Binding FormRecord.Dni}">
+                    <controls:CustomEntry x:Name="dniField" Placeholder="Ingrese número de DNI" Keyboard="Numeric" Text="{Binding FormRecord.Dni}">
                         <controls:CustomEntry.Behaviors>
                             <behavior:NumericValidator />
                         </controls:CustomEntry.Behaviors>
@@ -49,7 +51,18 @@
                     <controls:CustomEntry x:Name="nameField" HorizontalOptions="FillAndExpand" Placeholder="Ingrese nombre/s" Text="{Binding FormRecord.Nombre}"
                                           PlaceholderColor="Gray"/>
                 </StackLayout>
-                <StackLayout Grid.Row="3">
+
+                <StackLayout Grid.Row="3" >
+                    <Label Text="Cantidad de integrantes de grupo familiar" TextColor="Black" FontSize="16" VerticalTextAlignment="Start"/>
+                    <controls:CustomEntry x:Name="integrantesField"  HorizontalOptions="FillAndExpand" Keyboard="Numeric"
+                           Placeholder="Ingrese numero de integrantes" PlaceholderColor="Gray" Text="{Binding FormRecord.Cantidad}">
+                        <controls:CustomEntry.Behaviors>
+                            <behavior:NumericValidator />
+                        </controls:CustomEntry.Behaviors>
+                    </controls:CustomEntry>
+                </StackLayout>
+
+                <StackLayout Grid.Row="4">
                     <Label Text="Localidad" TextColor="Black" FontSize="16" VerticalTextAlignment="Start"/>
                     <controls:CustomPicker x:Name="localidadPicker" ItemsSource="{Binding Cities, Source={RelativeSource AncestorType={x:Type viewModels:SampleRecordingViewModel}}}" 
                             Title="Seleccione localidad" 
@@ -60,13 +73,18 @@
 
                     <BoxView Margin="0,-5,0,5" HeightRequest="1" Color="{StaticResource Primary}" HorizontalOptions="FillAndExpand"/>
                 </StackLayout>
-                <StackLayout Grid.Row="4" x:Name="addressInput" Spacing="0">
+                <StackLayout Grid.Row="5" Spacing="0">
+                    <Label Text="Barrio/Paraje" TextColor="Black" FontSize="16" VerticalTextAlignment="Start"/>
+                    <controls:CustomEntry x:Name="barrioField" HorizontalOptions="FillAndExpand" Placeholder="Ingrese barrio o paraje" Text="{Binding FormRecord.Barrio}"
+                                          PlaceholderColor="Gray"/>
+                </StackLayout>
+                <StackLayout Grid.Row="6" Spacing="0">
                     <Label Text="Domicilio" TextColor="Black" FontSize="16" VerticalTextAlignment="Start"/>
                     <controls:CustomEntry x:Name="domicilioField" HorizontalOptions="FillAndExpand" Placeholder="Ingrese domicilio" Text="{Binding FormRecord.Domicilio}"
                                           PlaceholderColor="Gray"/>
                 </StackLayout>
 
-                <StackLayout Grid.Row="5">
+                <StackLayout Grid.Row="7">
                     <Label Text="Telefono" TextColor="Black" FontSize="16" VerticalTextAlignment="Start"/>
                     <controls:CustomEntry x:Name="telefonoField" HorizontalOptions="FillAndExpand" Keyboard="Telephone" Placeholder="Ingrese telefono de contacto" 
                                           Text="{Binding FormRecord.Telefono}" PlaceholderColor="Gray">
@@ -75,7 +93,7 @@
                         </controls:CustomEntry.Behaviors>
                     </controls:CustomEntry>
                 </StackLayout>
-                <StackLayout Grid.Row="6">
+                <StackLayout Grid.Row="8">
                     <Label Text="Correo electronico (opcional)" TextColor="Black" FontSize="16" VerticalTextAlignment="Start"/>
                     <controls:CustomEntry x:Name="correoField" HorizontalOptions="FillAndExpand" Placeholder="Ingrese un correo electronico" Keyboard="Email" Text="{Binding FormRecord.Email}"
                                           PlaceholderColor="Gray">
@@ -89,7 +107,9 @@
                 
             </StackLayout>
             <StackLayout x:Name="formPhotoContent">
-                <Grid>
+                <AbsoluteLayout>
+
+                <Grid AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition />
                         <ColumnDefinition />
@@ -107,12 +127,15 @@
                                              VerticalOptions="FillAndExpand" CornerRadius="4" Border="{pancakeview:BorderMarkup Color=White, Thickness='3'}">
                             <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
                             <Label Text="Imagen" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"  IsVisible="{Binding HasPhoto, Mode=TwoWay, Converter={StaticResource inverterConverter}}"/>
-                                <ActivityIndicator IsVisible="{Binding IsImageLoading}" IsRunning="{Binding IsImageLoading}" Color="{StaticResource Primary}" />
-                            <ff:CachedImage Source="{Binding PhotoPath}" IsVisible="{Binding HasPhoto}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Aspect="AspectFill"/>
+                            
+                            <ff:CachedImage Source="{Binding PhotoPath}" IsVisible="{Binding HasPhoto}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Aspect="AspectFill" Finish="CachedImage_Finish"/>
                             </StackLayout>
                         </pancakeview:PancakeView>
                     </pancakeview:PancakeView>
                 </Grid>
+                <ActivityIndicator IsVisible="{Binding IsImageLoading}" IsRunning="{Binding IsImageLoading}" Color="{StaticResource Primary}" AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1"
+                                   AbsoluteLayout.LayoutFlags="PositionProportional"/>
+                </AbsoluteLayout>
                 <BoxView HeightRequest="1" HorizontalOptions="FillAndExpand" Color="Gray" Margin="0"/>
             </StackLayout>
             <!--<StackLayout>

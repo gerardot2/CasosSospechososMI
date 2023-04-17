@@ -65,6 +65,7 @@ namespace CasosSospechososMI.Services.Family
                 apellido: record.Apellido,
                 nombre:record.Nombre,
                 cantidad:record.Cantidad,
+                barrio: record.Barrio,
                 domicilio: record.Domicilio,
                 id_localidad:record.LocalidadId,
                 telefono: record.Telefono,
