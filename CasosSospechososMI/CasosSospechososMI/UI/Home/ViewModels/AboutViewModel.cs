@@ -179,6 +179,7 @@ namespace CasosSospechososMI.UI.Home.ViewModels
             var resp = new OperationResult<List<FormModel>>();
             Akavache.Registrations.Start("CasosSospechososMI");
             var keys = await BlobCache.LocalMachine.GetAllKeys();
+
             if (keys.Contains("formModel"))
             {
                 resp = await BlobCache.LocalMachine.GetObject<OperationResult<List<FormModel>>>("formModel");

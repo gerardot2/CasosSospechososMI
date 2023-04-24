@@ -201,7 +201,6 @@ UpdateActualUser updateActualUser) : base(routingService)
         {
             CancellationTokenSource = new CancellationTokenSource();
             var superv = new Domain.Account.User();
-
             await CheckIfAvailable(cameraOpened, IsSupervisor);
             if (!Cities.Any())
             {
@@ -210,7 +209,10 @@ UpdateActualUser updateActualUser) : base(routingService)
             }
             if (!IsConnected && FormItems.Count() == 0 )
             {
+                if (IsBusy) return;
+                IsBusy = true;
                 await CheckAndLoadCached();
+                IsBusy = false;
             }
             if (FormItems.Count() == 0 && IsConnected)
             {
@@ -218,7 +220,20 @@ UpdateActualUser updateActualUser) : base(routingService)
                 superv = _getActualUser.Invoke();
                 await SearchFormItems();
             }
+            await CheckForCameraAndGPSPermissions();
             
+        }
+        public async Task<bool> CheckForCameraAndGPSPermissions()
+        {
+            var cameraPermissions = await Permissions.RequestAsync<Permissions.Camera>();
+            var storageReadPermissions = await Permissions.RequestAsync<Permissions.StorageRead>();
+            var storageWritePermissions = await Permissions.RequestAsync<Permissions.StorageWrite>();
+            var gpsPermissions = await Permissions.RequestAsync<Permissions.LocationWhenInUse>();
+
+            return cameraPermissions == PermissionStatus.Granted
+                && storageReadPermissions == PermissionStatus.Granted
+                && storageWritePermissions == PermissionStatus.Granted
+                && gpsPermissions == PermissionStatus.Granted;
         }
 
         public async Task SearchCities()
